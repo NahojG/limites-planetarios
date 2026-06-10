@@ -1,0 +1,65 @@
+{
+  "clima": {
+    "nombre": "Cambio climático",
+    "corto": "Clima",
+    "inicial": 55,
+    "descripcion": "Concentración de CO₂ y forzamiento radiativo. Transgredido desde 2015 según Steffen et al. El mundo del cambio climático no ha sido experimentado por ningún humano moderno.",
+    "referencia": "Steffen et al. (2015). Planetary boundaries. Science."
+  },
+  "biosfera": {
+    "nombre": "Integridad de la biósfera",
+    "corto": "Biósfera",
+    "inicial": 70,
+    "descripcion": "Pérdida de biodiversidad y extinción de especies. Vivimos la sexta extinción, causada por una sola especie y el sistema económico en el que la mayoría del mundo ha elegido vivir.",
+    "referencia": "Rockström et al. (2009); Wilson (2016). Half Earth."
+  },
+  "biogeoquimicos": {
+    "nombre": "Ciclos de nitrógeno y fósforo",
+    "corto": "N y P",
+    "inicial": 75,
+    "descripcion": "Flujos biogeoquímicos alterados por fertilizantes industriales. Uno de los primeros cuatro límites declarados transgredidos en 2015.",
+    "referencia": "Steffen et al. (2015). Planetary boundaries. Science."
+  },
+  "suelo": {
+    "nombre": "Cambios de los sistemas de suelo",
+    "corto": "Suelos",
+    "inicial": 50,
+    "descripcion": "Deforestación y conversión de ecosistemas en tierras agrícolas o urbanas. Transformación de paisajes señalada como evidencia del Antropoceno.",
+    "referencia": "Steffen et al. (2015); Hamilton, Bonneuil y Gemenne (2015)."
+  },
+  "entidades": {
+    "nombre": "Nuevas entidades",
+    "corto": "Plásticos",
+    "inicial": 62,
+    "descripcion": "Elementos modificados por los humanos y entidades totalmente nuevas, como los microplásticos y plásticos. Límite declarado superado en 2022.",
+    "referencia": "Persson et al. (2022). Environmental Science & Technology."
+  },
+  "agua": {
+    "nombre": "Agua verde",
+    "corto": "Agua",
+    "inicial": 48,
+    "descripcion": "La precipitación terrestre, la evaporación y la humedad del suelo, ampliamente perturbadas por presiones humanas. Ecosistemas enteros como la Amazonía están empezando a secarse.",
+    "referencia": "Wang-Erlandsson et al. (2022). Nature Reviews Earth & Environment."
+  },
+  "oceanos": {
+    "nombre": "Acidificación de los océanos",
+    "corto": "Océanos",
+    "inicial": 32,
+    "descripcion": "El CO₂ absorbido por el mar reduce su pH y amenaza corales y cadenas tróficas marinas. Aún en zona de creciente riesgo.",
+    "referencia": "Rockström et al. (2009). Ecology and Society."
+  },
+  "ozono": {
+    "nombre": "Ozono estratosférico",
+    "corto": "Ozono",
+    "inicial": 15,
+    "descripcion": "El único límite que ha mejorado gracias a un acuerdo global: el Protocolo de Montreal. Prueba de que la construcción de acuerdos funciona.",
+    "referencia": "Rockström et al. (2009). Ecology and Society."
+  },
+  "aerosoles": {
+    "nombre": "Aerosoles atmosféricos",
+    "corto": "Aerosoles",
+    "inicial": 38,
+    "descripcion": "Partículas en suspensión que alteran los monzones y dañan la salud humana. Su umbral global aún no se cuantifica con certeza.",
+    "referencia": "Rockström et al. (2009). Ecology and Society."
+  }
+}

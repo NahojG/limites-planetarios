@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block titulo %}Jugando · Guardianes del Holoceno{% endblock %}
+{% block clase_cuerpo %}pagina-juego{% endblock %}
+{% block contenido %}
+<header class="barra">
+  <a class="marca" href="{{ url_for('inicio') }}">Guardianes del Holoceno</a>
+  <div class="barra-datos">
+    <div class="dato">
+      <span class="dato-etiqueta">Año</span>
+      <span class="dato-valor" id="anio">2025</span>
+    </div>
+    <div class="dato medidor">
+      <span class="dato-etiqueta">Salud planetaria</span>
+      <div class="medidor-pista"><div class="medidor-relleno salud" id="medidor-salud"></div></div>
+    </div>
+    <div class="dato medidor">
+      <span class="dato-etiqueta">Bienestar social</span>
+      <div class="medidor-pista"><div class="medidor-relleno bienestar" id="medidor-bienestar"></div></div>
+    </div>
+  </div>
+</header>
+
+<main class="tablero">
+  <section class="zona-planeta">
+    <div class="planeta salud-estable" id="planeta">
+      <div class="planeta-oceano"></div>
+      <div class="planeta-continentes"></div>
+      <div class="planeta-nubes"></div>
+      <div class="planeta-smog"></div>
+      <div class="planeta-sombra"></div>
+      <div class="planeta-brillo"></div>
+    </div>
+    <p class="estado-planeta" id="estado-planeta">La Tierra resiste, pero seis límites ya están transgredidos.</p>
+
+    <div class="zona-diagrama">
+      <h2 class="subtitulo">Los 9 límites planetarios</h2>
+      <svg id="diagrama" viewBox="0 0 320 320" role="img" aria-label="Diagrama radial de los nueve límites planetarios"></svg>
+      <p class="pista-diagrama">La línea punteada es el límite: las cuñas que la cruzan están transgredidas. Toca una cuña para saber más.</p>
+      <div class="info-limite oculto" id="info-limite">
+        <h3 id="info-nombre"></h3>
+        <p id="info-descripcion"></p>
+        <p class="referencia" id="info-referencia"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="zona-tarjeta">
+    <article class="tarjeta" id="tarjeta">
+      <p class="tarjeta-tipo" id="tarjeta-tipo">Decisión</p>
+      <h2 class="tarjeta-titulo" id="tarjeta-titulo"></h2>
+      <p class="tarjeta-contexto" id="tarjeta-contexto"></p>
+      <div class="opciones" id="opciones"></div>
+    </article>
+
+    <article class="tarjeta tarjeta-feedback oculto" id="feedback">
+      <p class="tarjeta-tipo" id="feedback-tipo">Consecuencias</p>
+      <p class="feedback-texto" id="feedback-texto"></p>
+      <div class="cambios" id="cambios"></div>
+      <button class="boton boton-principal" id="continuar">Continuar →</button>
+    </article>
+
+    <article class="tarjeta tarjeta-final oculto" id="final">
+      <p class="tarjeta-tipo">Fin de la partida</p>
+      <h2 class="tarjeta-titulo" id="final-titulo"></h2>
+      <p class="feedback-texto" id="final-texto"></p>
+      <div class="acciones">
+        <form action="{{ url_for('nueva_partida') }}" method="post">
+          <button class="boton boton-principal" type="submit">Jugar de nuevo</button>
+        </form>
+        <a class="boton boton-secundario" href="{{ url_for('creditos') }}">Créditos</a>
+      </div>
+    </article>
+  </section>
+</main>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/juego.js') }}"></script>
+{% endblock %}

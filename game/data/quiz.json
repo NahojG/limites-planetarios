@@ -1,0 +1,38 @@
+[
+  {
+    "pregunta": "¿Cuántos límites planetarios definieron Johan Rockström y los científicos del Centro de Resiliencia de Estocolmo en 2009?",
+    "opciones": ["Cinco", "Nueve", "Doce"],
+    "correcta": 1,
+    "explicacion": "Rockström y su equipo definieron nueve límites planetarios: las zonas seguras para el actuar humano, más allá de las cuales entramos en zonas de riesgo (Rockström et al., 2009)."
+  },
+  {
+    "pregunta": "¿Qué límite fue declarado superado en 2022 por la presencia de plásticos y microplásticos?",
+    "opciones": ["Nuevas entidades", "Acidificación de los océanos", "Ozono estratosférico"],
+    "correcta": 0,
+    "explicacion": "El límite de «nuevas entidades» —elementos modificados por los humanos y entidades totalmente nuevas como los microplásticos— fue declarado superado por Persson et al. (2022)."
+  },
+  {
+    "pregunta": "El límite planetario del «agua verde», propuesto en 2022, se refiere a…",
+    "opciones": ["El agua embotellada y su huella plástica", "Los glaciares y casquetes polares", "La precipitación terrestre, la evaporación y la humedad del suelo"],
+    "correcta": 2,
+    "explicacion": "«El agua verde —la precipitación terrestre, la evaporación y la humedad del suelo— es fundamental para la dinámica del sistema terrestre y se ve ampliamente perturbada por las presiones humanas» (Wang-Erlandsson et al., 2022)."
+  },
+  {
+    "pregunta": "¿Qué término propone Jason Moore para subrayar que no toda la humanidad es igualmente responsable de la crisis planetaria?",
+    "opciones": ["Tecnoceno", "Capitaloceno", "Holoceno tardío"],
+    "correcta": 1,
+    "explicacion": "Moore (2020) contrapone «Capitaloceno» a «Antropoceno»: el cambio planetario no lo generó la humanidad entera, sino un sistema económico fosilista que no todas las sociedades adoptaron por igual."
+  },
+  {
+    "pregunta": "Según la cartilla, el concepto de límites significa…",
+    "opciones": ["Vivir con menos para vivir mejor", "Escasez y sacrificio permanentes", "Frenar toda actividad económica"],
+    "correcta": 0,
+    "explicacion": "«Límites no quiere decir escasez… La vida que se propone con el concepto de límites es la del menos en más: más calidad de vida, más tiempo para la vida, más aire sin contaminar. Límites significa vivir con menos para vivir mejor»."
+  },
+  {
+    "pregunta": "El informe «Los límites del crecimiento» (Club de Roma, 1972) se basó en un modelo computacional llamado…",
+    "opciones": ["Gaia-1", "World3", "EarthSim"],
+    "correcta": 1,
+    "explicacion": "El equipo del MIT liderado por Donella Meadows usó el modelo World3 para mostrar que, con el «business-as-usual», entraríamos en crisis en algún momento entre 2030 y 2040 (Meadows, 2005)."
+  }
+]

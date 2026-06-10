@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block clase_cuerpo %}pagina-inicio{% endblock %}
+{% block contenido %}
+<main class="portada">
+  <div class="portada-texto">
+    <p class="sello">Cátedra Ambiental · Universidad de Antioquia</p>
+    <h1 class="titulo-gigante">Guardianes<br>del <em>Holoceno</em></h1>
+    <p class="bajada">
+      Durante 11.700 años el Holoceno nos regaló un planeta estable.
+      Hoy, <strong>seis de los nueve límites planetarios ya fueron transgredidos</strong>.
+      Asume el gobierno del mundo entre 2025 y 2090: cada decisión que tomes
+      degradará o sanará la Tierra que gira frente a ti.
+    </p>
+    <div class="acciones">
+      <form action="{{ url_for('nueva_partida') }}" method="post">
+        <button class="boton boton-principal" type="submit">Comenzar partida</button>
+      </form>
+      <a class="boton boton-secundario" href="{{ url_for('creditos') }}">Créditos y referencias</a>
+    </div>
+    <ul class="claves">
+      <li><span>9</span> límites planetarios en juego</li>
+      <li><span>12</span> decisiones y pausas de saberes</li>
+      <li><span>65</span> años para cambiar el rumbo</li>
+    </ul>
+  </div>
+  <div class="portada-planeta">
+    <div class="planeta salud-degradado" id="planeta-portada" aria-hidden="true">
+      <div class="planeta-oceano"></div>
+      <div class="planeta-continentes"></div>
+      <div class="planeta-nubes"></div>
+      <div class="planeta-smog"></div>
+      <div class="planeta-sombra"></div>
+      <div class="planeta-brillo"></div>
+    </div>
+    <p class="leyenda-planeta">Así está la Tierra hoy. ¿La dejarás mejor?</p>
+  </div>
+</main>
+<footer class="pie">
+  Basado en la cartilla «Ciencia, conflictos y alternativas para el siglo XXI» · Módulo 4 ·
+  Rockström et al. (2009) · Steffen et al. (2015) · Persson et al. (2022) · Wang-Erlandsson et al. (2022)
+</footer>
+{% endblock %}
