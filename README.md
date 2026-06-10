@@ -26,14 +26,6 @@ python app.py
 # abre http://localhost:5000
 ```
 
-## Desplegar en Railway
-
-1. Sube esta carpeta a un repositorio de GitHub.
-2. En [railway.app](https://railway.app): **New Project → Deploy from GitHub repo**.
-3. Railway detecta Python con Nixpacks y usa el `Procfile` automáticamente.
-4. En **Variables**, agrega `SECRET_KEY` con un valor aleatorio largo.
-5. En **Settings → Networking**, genera el dominio público (`Generate Domain`).
-
 ## Estructura
 
 ```
