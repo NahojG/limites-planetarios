@@ -158,13 +158,13 @@
         "texto": "Estimular el consumo: publicidad, obsolescencia programada, crédito fácil.",
         "efectos": { "entidades": 8, "clima": 6, "biosfera": 4, "biogeoquimicos": 3 },
         "bienestar": 5,
-        "feedback": "El capitalismo ha generado seres humanos «narcisistas y cortoplacistas que consumen para acumular», dice la cartilla siguiendo a María Novo (2016). La economía celebra; los sumideros de la Tierra, no."
+        "feedback": "El capitalismo ha generado seres humanos «narcisistas y cortoplacistas» que ya no consumen para vivir, sino «para acumular», advierte la cartilla. La economía celebra; los sumideros de la Tierra, no."
       },
       {
         "texto": "Decrecer en lo superfluo: semana laboral corta, reparar en vez de comprar.",
         "efectos": { "clima": -6, "entidades": -5, "biosfera": -3, "biogeoquimicos": -2 },
         "bienestar": 1,
-        "feedback": "«Límites no quiere decir escasez: quiere decir aprender a vivir con menos para tener más» (cartilla, siguiendo a Hickel y Kallis). Menos producción inútil, más tiempo, más aire limpio: vivir con menos para vivir mejor."
+        "feedback": "«Límites no quiere decir escasez, pero sí quiere decir aprender a vivir con menos para tener más» (cartilla, en diálogo con el decrecimiento de Hickel y Kallis). Menos producción inútil, más tiempo, más aire limpio: vivir con menos para vivir mejor."
       },
       {
         "texto": "Crecimiento verde: producir igual, pero con ecoetiquetas.",

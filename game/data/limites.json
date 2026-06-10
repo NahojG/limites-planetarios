@@ -58,7 +58,7 @@
   "aerosoles": {
     "nombre": "Aerosoles atmosféricos",
     "corto": "Aerosoles",
-    "inicial": 38,
+    "inicial": 28,
     "descripcion": "Partículas en suspensión que alteran los monzones y dañan la salud humana. Su umbral global aún no se cuantifica con certeza.",
     "referencia": "Rockström et al. (2009). Ecology and Society."
   }
