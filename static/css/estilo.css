@@ -630,7 +630,7 @@ body {
   text-align: center;
   z-index: 5;
   cursor: pointer;
-  animation: rodar 60s linear infinite;
+  animation: rodar 46s linear infinite;
 }
 @keyframes rodar {
   from { transform: translate(-50%, 100vh); }
