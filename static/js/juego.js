@@ -51,6 +51,9 @@ function pintarPlaneta(salud) {
   const planeta = $("planeta");
   const estado = claseSalud(salud);
   planeta.className = "planeta salud-" + estado;
+  // Degradación continua: 0 = sano (salud >= 68), 1 = colapso (salud <= 18).
+  const deg = Math.min(1, Math.max(0, (68 - salud) / 50));
+  planeta.style.setProperty("--deg", deg.toFixed(3));
   $("estado-planeta").textContent = FRASES_SALUD[estado];
 }
 
@@ -143,7 +146,9 @@ function pintarDiagrama(limites) {
 }
 
 function mostrarInfo(limite) {
-  $("info-limite").classList.remove("oculto");
+  const info = $("info-limite");
+  info.classList.remove("oculto");
+  info.onclick = () => info.classList.add("oculto");
   $("info-nombre").textContent = `${limite.nombre} — nivel ${limite.nivel}/100 (zona ${
     limite.zona === "alto" ? "de alto riesgo" : limite.zona === "riesgo" ? "de riesgo" : "segura"
   })`;

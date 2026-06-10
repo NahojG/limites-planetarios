@@ -31,11 +31,6 @@ def nueva_partida():
     return redirect(url_for("jugar"))
 
 
-@app.get("/creditos")
-def creditos():
-    return render_template("creditos.html")
-
-
 @app.get("/api/estado")
 def api_estado():
     estado = session.get("estado")
