@@ -51,17 +51,22 @@ function pintarPlaneta(salud) {
   const planeta = $("planeta");
   const estado = claseSalud(salud);
   planeta.className = "planeta salud-" + estado;
-  // Degradación continua: 0 = sano (salud >= 68), 1 = colapso (salud <= 18).
-  const deg = Math.min(1, Math.max(0, (68 - salud) / 50));
+  // Degradación continua: 0 = sano (salud >= 70), 1 = colapso (salud <= 28).
+  const deg = Math.min(1, Math.max(0, (70 - salud) / 42));
   planeta.style.setProperty("--deg", deg.toFixed(3));
   $("estado-planeta").textContent = FRASES_SALUD[estado];
 }
 
-function pulsoPlaneta() {
+/* Reacción visible: pulso + destello rojo si la decisión dañó al planeta,
+   destello verde si lo sanó. */
+function reaccionPlaneta(delta) {
   const planeta = $("planeta");
-  planeta.classList.remove("pulso");
-  void planeta.offsetWidth; // reinicia la animación
+  planeta.classList.remove("pulso", "dano", "sana");
+  void planeta.offsetWidth; // reinicia las animaciones
   planeta.classList.add("pulso");
+  if (delta < 0) planeta.classList.add("dano");
+  else if (delta > 0) planeta.classList.add("sana");
+  setTimeout(() => planeta.classList.remove("pulso", "dano", "sana"), 1400);
 }
 
 function pintarMedidores(estado) {
@@ -112,7 +117,7 @@ function pintarDiagrama(limites) {
     cuna.appendChild(titulo);
     svg.appendChild(cuna);
 
-    const [ex, ey] = puntoPolar((a0 + a1) / 2, R_MAX + 13);
+    const [ex, ey] = puntoPolar((a0 + a1) / 2, R_MAX + 4);
     const texto = document.createElementNS(ns, "text");
     texto.setAttribute("x", ex);
     texto.setAttribute("y", ey);
@@ -120,7 +125,7 @@ function pintarDiagrama(limites) {
     texto.setAttribute("dominant-baseline", "middle");
     texto.setAttribute("font-size", "10.5");
     texto.setAttribute("font-weight", "700");
-    texto.setAttribute("fill", "#56636e");
+    texto.setAttribute("class", "etiqueta");
     texto.textContent = limite.corto;
     svg.appendChild(texto);
   });
@@ -131,17 +136,17 @@ function pintarDiagrama(limites) {
   frontera.setAttribute("cy", CENTRO);
   frontera.setAttribute("r", R_LIMITE);
   frontera.setAttribute("fill", "none");
-  frontera.setAttribute("stroke", "#20303c");
   frontera.setAttribute("stroke-dasharray", "5 4");
   frontera.setAttribute("stroke-width", "1.6");
   frontera.setAttribute("opacity", "0.7");
+  frontera.setAttribute("class", "frontera");
   svg.appendChild(frontera);
 
   const nucleo = document.createElementNS(ns, "circle");
   nucleo.setAttribute("cx", CENTRO);
   nucleo.setAttribute("cy", CENTRO);
   nucleo.setAttribute("r", R_BASE - 6);
-  nucleo.setAttribute("fill", "#1c5d99");
+  nucleo.setAttribute("class", "nucleo");
   svg.appendChild(nucleo);
 }
 
@@ -208,6 +213,7 @@ function pintarCambios(respuesta) {
 async function decidir(opcion) {
   if (bloqueado) return;
   bloqueado = true;
+  const saludPrevia = ultimoEstado ? ultimoEstado.salud : null;
   document.querySelectorAll(".opcion").forEach((b) => (b.disabled = true));
 
   const res = await fetch("/api/decidir", {
@@ -233,8 +239,8 @@ async function decidir(opcion) {
   pintarCambios(respuesta);
 
   // El planeta reacciona de inmediato
-  pulsoPlaneta();
   pintarPlaneta(estado.salud);
+  reaccionPlaneta(saludPrevia === null ? 0 : estado.salud - saludPrevia);
   pintarMedidores(estado);
   pintarDiagrama(estado.limites);
   bloqueado = false;

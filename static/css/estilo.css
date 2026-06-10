@@ -1,25 +1,47 @@
 /* ============================================================
-   Guardianes del Holoceno — estética de cartilla ilustrada
-   Paleta: papel crema, azul profundo, verde vivo, naranja tierra.
+   Guardianes del Holoceno — modo oscuro por defecto.
+   Acentos de la cartilla UdeA: verde vivo, naranja tierra, ocre.
    ============================================================ */
 :root {
-  --papel: #f3efe4;
-  --papel-oscuro: #e9e3d2;
-  --tinta: #20303c;
-  --tinta-suave: #56636e;
-  --azul: #1c5d99;
-  --azul-noche: #0d2b45;
-  --verde: #588157;
-  --verde-vivo: #79b06a;
+  /* Tema oscuro (por defecto) */
+  --fondo: #0d1b29;
+  --superficie: #15293c;
+  --superficie-alt: #0f2133;
+  --texto: #e9e4d6;
+  --texto-suave: #9fadb8;
+  --titulo: #f2ecdc;
+  --borde: rgba(142, 197, 242, 0.22);
+  --azul: #4f96d8;
+  --azul-claro: #8ec5f2;
+  --azul-noche: #081523;
+  --verde: #6fae62;
+  --verde-vivo: #88c178;
   --naranja: #e76f51;
   --ocre: #e9c46a;
-  --rojo: #c1442e;
+  --rojo: #ff8d75;
+  --sombra: rgba(0, 0, 0, 0.45);
   --display: "Fraunces", Georgia, serif;
   --cuerpo: "Karla", "Helvetica Neue", sans-serif;
 }
 
-/* Grado de degradación del planeta: 0 = sano, 1 = colapso.
-   Registrada para poder animarla suavemente. */
+body.tema-claro {
+  --fondo: #f3efe4;
+  --superficie: #fffdf7;
+  --superficie-alt: #ece7d8;
+  --texto: #20303c;
+  --texto-suave: #56636e;
+  --titulo: #0d2b45;
+  --borde: rgba(28, 93, 153, 0.28);
+  --azul: #1c5d99;
+  --azul-claro: #1c5d99;
+  --azul-noche: #0d2b45;
+  --verde: #588157;
+  --verde-vivo: #588157;
+  --rojo: #c1442e;
+  --sombra: rgba(13, 43, 69, 0.15);
+}
+
+/* Grado de degradación del planeta: 0 = sano, 1 = colapso. */
 @property --deg {
   syntax: "<number>";
   inherits: true;
@@ -30,10 +52,11 @@
 
 body {
   font-family: var(--cuerpo);
-  background: var(--papel);
-  color: var(--tinta);
+  background: var(--fondo);
+  color: var(--texto);
   min-height: 100vh;
   line-height: 1.5;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .grano {
@@ -45,9 +68,25 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23r)'/%3E%3C/svg%3E");
 }
 
+/* Botón flotante de tema */
+.boton-tema {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 60;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  border: 2px solid var(--borde);
+  background: var(--superficie);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px var(--sombra);
+  transition: transform 0.15s ease;
+}
+.boton-tema:hover { transform: scale(1.12) rotate(15deg); }
+
 /* ============================== PLANETA ============================== */
-/* La degradación es CONTINUA: todos los filtros, el smog y el halo
-   dependen de --deg, así cada decisión produce un cambio visible. */
 .planeta {
   --talla: min(40vh, 26vw, 360px);
   position: relative;
@@ -57,9 +96,9 @@ body {
   overflow: hidden;
   transition: --deg 1.8s ease;
   box-shadow:
-    inset -28px -22px 60px rgba(10, 32, 52, 0.6),
+    inset -28px -22px 60px rgba(5, 18, 32, 0.65),
     inset 10px 10px 30px rgba(255, 255, 255, 0.22),
-    0 0 0 6px rgba(28, 93, 153, 0.08),
+    0 0 0 6px rgba(142, 197, 242, 0.08),
     0 0 70px color-mix(in srgb,
       rgba(121, 176, 106, 0.6) calc((1 - var(--deg)) * 100%),
       rgba(193, 68, 46, 0.75));
@@ -83,16 +122,16 @@ body {
 .planeta-continentes {
   background-image: url("../img/continentes.svg");
   animation: girar 75s linear infinite;
-  filter: sepia(calc(var(--deg) * 0.7))
-          saturate(calc(1.15 - var(--deg) * 0.85))
-          hue-rotate(calc(var(--deg) * -28deg))
-          brightness(calc(1.04 - var(--deg) * 0.38));
+  filter: sepia(calc(var(--deg) * 0.9))
+          saturate(calc(1.2 - var(--deg) * 1.0))
+          hue-rotate(calc(var(--deg) * -38deg))
+          brightness(calc(1.05 - var(--deg) * 0.52));
 }
 
 .planeta-nubes {
   background-image: url("../img/nubes.svg");
   animation: girar 48s linear infinite;
-  opacity: calc(0.85 - var(--deg) * 0.62);
+  opacity: calc(0.9 - var(--deg) * 0.78);
 }
 
 @keyframes girar {
@@ -100,18 +139,17 @@ body {
   to   { background-position-x: -200%; }
 }
 
-/* Smog: invisible con el planeta sano, denso cerca del colapso */
 .planeta-smog {
   background:
     radial-gradient(ellipse 42% 18% at 30% 38%, rgba(96, 82, 62, 0.95), transparent 70%),
     radial-gradient(ellipse 50% 22% at 72% 60%, rgba(74, 67, 56, 0.9), transparent 70%),
     radial-gradient(ellipse 38% 16% at 55% 25%, rgba(110, 92, 68, 0.85), transparent 70%),
     radial-gradient(ellipse 60% 26% at 45% 80%, rgba(62, 57, 50, 0.8), transparent 72%);
-  opacity: clamp(0, calc((var(--deg) - 0.2) * 1.25), 0.85);
+  opacity: clamp(0, calc((var(--deg) - 0.15) * 1.4), 0.95);
 }
 
 .planeta-sombra {
-  background: linear-gradient(105deg, transparent 52%, rgba(10, 32, 52, 0.55) 88%);
+  background: linear-gradient(105deg, transparent 52%, rgba(5, 18, 32, 0.6) 88%);
 }
 .planeta-brillo {
   background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.35), transparent 42%);
@@ -119,10 +157,24 @@ body {
 }
 
 @keyframes pulso-dano {
-  0% { transform: scale(1); } 30% { transform: scale(0.985); }
-  60% { transform: scale(1.008); } 100% { transform: scale(1); }
+  0% { transform: scale(1); } 30% { transform: scale(0.98); }
+  60% { transform: scale(1.012); } 100% { transform: scale(1); }
 }
 .planeta.pulso { animation: pulso-dano 0.9s ease; }
+
+/* Destello al decidir: rojo si dañas al planeta, verde si lo sanas */
+.planeta-flash { opacity: 0; pointer-events: none; }
+.planeta.dano .planeta-flash {
+  background: radial-gradient(circle, transparent 30%, rgba(225, 62, 40, 0.6) 100%);
+  animation: destello 1.3s ease both;
+}
+.planeta.sana .planeta-flash {
+  background: radial-gradient(circle, transparent 30%, rgba(124, 210, 110, 0.55) 100%);
+  animation: destello 1.3s ease both;
+}
+@keyframes destello {
+  0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; }
+}
 
 /* ============================== PORTADA ============================== */
 .pagina-inicio {
@@ -131,9 +183,9 @@ body {
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(ellipse 80% 60% at 85% 10%, rgba(28, 93, 153, 0.12), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(88, 129, 87, 0.12), transparent 60%),
-    var(--papel);
+    radial-gradient(ellipse 80% 60% at 85% 10%, rgba(79, 150, 216, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(121, 176, 106, 0.1), transparent 60%),
+    var(--fondo);
 }
 
 .portada {
@@ -154,12 +206,11 @@ body {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--azul);
-  border: 2px solid var(--azul);
+  color: var(--azul-claro);
+  border: 2px solid var(--azul-claro);
   border-radius: 999px;
   padding: 0.28rem 0.85rem;
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.5);
 }
 
 .titulo-gigante {
@@ -167,14 +218,14 @@ body {
   font-weight: 800;
   font-size: clamp(2.2rem, 4.6vw, 3.8rem);
   line-height: 1.02;
-  color: var(--azul-noche);
+  color: var(--titulo);
   margin-bottom: 1rem;
 }
-.titulo-gigante em { font-style: italic; color: var(--verde); }
+.titulo-gigante em { font-style: italic; color: var(--verde-vivo); }
 
 .bajada {
   font-size: clamp(0.92rem, 1.3vw, 1.05rem);
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   max-width: 34rem;
   margin-bottom: 1.4rem;
 }
@@ -207,8 +258,8 @@ body {
 
 .boton-secundario {
   background: transparent;
-  color: var(--azul);
-  border: 2px solid var(--azul);
+  color: var(--azul-claro);
+  border: 2px solid var(--azul-claro);
 }
 
 .claves {
@@ -218,13 +269,13 @@ body {
   margin-top: 1.8rem;
   flex-wrap: wrap;
 }
-.claves li { font-size: 0.82rem; color: var(--tinta-suave); max-width: 8.5rem; }
+.claves li { font-size: 0.82rem; color: var(--texto-suave); max-width: 8.5rem; }
 .claves span {
   display: block;
   font-family: var(--display);
   font-weight: 800;
   font-size: 1.9rem;
-  color: var(--verde);
+  color: var(--verde-vivo);
   line-height: 1;
 }
 
@@ -233,14 +284,14 @@ body {
 .leyenda-planeta {
   margin-top: 1.1rem;
   font-style: italic;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.9rem;
 }
 
 .pie {
   text-align: center;
   font-size: 0.72rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   padding: 0.7rem 2rem 0.9rem;
   opacity: 0.85;
 }
@@ -251,7 +302,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: var(--papel);
+  background: var(--fondo);
 }
 
 .barra {
@@ -320,12 +371,12 @@ body {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(230px, 0.8fr) minmax(240px, 0.75fr) minmax(350px, 1.05fr);
-  gap: 1.6rem;
+  grid-template-columns: minmax(220px, 0.78fr) minmax(230px, 0.72fr) minmax(340px, 1.05fr);
+  gap: clamp(2.2rem, 4.5vw, 4.5rem);
   width: 100%;
-  max-width: 1280px;
+  max-width: 1340px;
   margin: 0 auto;
-  padding: 1.2rem 1.6rem 1.4rem;
+  padding: 1.2rem 2.2rem 1.4rem;
   align-items: stretch;
   overflow: hidden;
 }
@@ -338,18 +389,27 @@ body {
   text-align: center;
   min-height: 0;
 }
-.zona-planeta .planeta { --talla: min(38vh, 22vw, 330px); }
+.zona-planeta .planeta { --talla: min(36vh, 21vw, 310px); }
 
 .estado-planeta {
   margin-top: 0.9rem;
   font-style: italic;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   max-width: 22rem;
   font-size: 0.85rem;
   min-height: 2.6em;
 }
 
-/* Diagrama radial */
+.pista-planeta {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--texto-suave);
+  opacity: 0.85;
+  max-width: 21rem;
+}
+.pista-planeta strong { color: var(--ocre); font-weight: 700; }
+
+/* Diagrama radial: flota libre, sin caja */
 .zona-diagrama {
   position: relative;
   display: flex;
@@ -357,46 +417,52 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 0;
-  background: rgba(255, 255, 255, 0.55);
-  border: 2px dashed rgba(28, 93, 153, 0.35);
-  border-radius: 22px;
-  padding: 0.9rem 1rem;
 }
 .subtitulo {
   font-family: var(--display);
   font-weight: 600;
   font-size: 1rem;
-  color: var(--azul-noche);
+  color: var(--titulo);
   margin-bottom: 0.3rem;
 }
-#diagrama { width: 100%; max-width: min(40vh, 300px); height: auto; }
+#diagrama {
+  width: 100%;
+  max-width: min(42vh, 300px);
+  height: auto;
+  overflow: visible; /* las etiquetas exteriores no se recortan */
+  margin: 0.3rem 0;
+}
 #diagrama path.cuna { cursor: pointer; transition: opacity 0.2s; }
 #diagrama path.cuna:hover { opacity: 0.75; }
+#diagrama text.etiqueta { fill: var(--texto-suave); }
+#diagrama circle.frontera { stroke: var(--texto); }
+#diagrama circle.nucleo { fill: var(--azul); }
 .pista-diagrama {
   font-size: 0.7rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   margin-top: 0.4rem;
   text-align: center;
+  max-width: 21rem;
 }
 
 /* Ficha informativa: flota sobre el diagrama, clic para cerrar */
 .info-limite {
   position: absolute;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.7rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 6;
   cursor: pointer;
   text-align: left;
-  background: #fffdf7;
+  background: var(--superficie);
   border-radius: 14px;
   padding: 0.8rem 1rem;
   border-left: 5px solid var(--azul);
-  box-shadow: 0 10px 28px rgba(13, 43, 69, 0.25);
+  box-shadow: 0 10px 28px var(--sombra);
   animation: aparecer 0.3s ease both;
 }
-.info-limite h3 { font-family: var(--display); font-size: 0.92rem; color: var(--azul-noche); }
-.info-limite p { font-size: 0.78rem; color: var(--tinta-suave); margin-top: 0.25rem; }
+.info-limite h3 { font-family: var(--display); font-size: 0.92rem; color: var(--titulo); }
+.info-limite p { font-size: 0.78rem; color: var(--texto-suave); margin-top: 0.25rem; }
 .info-limite .referencia { font-size: 0.68rem; font-style: italic; opacity: 0.8; }
 .info-limite::after {
   content: "✕";
@@ -404,7 +470,7 @@ body {
   top: 0.5rem;
   right: 0.7rem;
   font-size: 0.7rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
 }
 
 /* Tarjetas de decisión */
@@ -418,12 +484,10 @@ body {
 }
 
 .tarjeta {
-  background: #fffdf7;
+  background: var(--superficie);
   border-radius: 22px;
   padding: 1.4rem 1.6rem 1.6rem;
-  box-shadow:
-    0 4px 0 rgba(13, 43, 69, 0.07),
-    0 14px 36px rgba(13, 43, 69, 0.13);
+  box-shadow: 0 14px 36px var(--sombra);
   border-top: 7px solid var(--naranja);
   animation: aparecer 0.5s ease both;
 }
@@ -441,19 +505,19 @@ body {
   color: var(--naranja);
   margin-bottom: 0.4rem;
 }
-.tarjeta.es-quiz { border-top-color: var(--verde); }
-.tarjeta.es-quiz .tarjeta-tipo { color: var(--verde); }
+.tarjeta.es-quiz { border-top-color: var(--verde-vivo); }
+.tarjeta.es-quiz .tarjeta-tipo { color: var(--verde-vivo); }
 
 .tarjeta-titulo {
   font-family: var(--display);
   font-weight: 800;
   font-size: clamp(1.15rem, 1.9vw, 1.5rem);
-  color: var(--azul-noche);
+  color: var(--titulo);
   margin-bottom: 0.5rem;
   line-height: 1.15;
 }
 .tarjeta-contexto {
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.92rem;
   margin-bottom: 1rem;
 }
@@ -464,23 +528,22 @@ body {
   font-family: var(--cuerpo);
   font-size: 0.89rem;
   font-weight: 500;
-  background: var(--papel);
-  color: var(--tinta);
-  border: 2px solid rgba(28, 93, 153, 0.25);
+  background: var(--superficie-alt);
+  color: var(--texto);
+  border: 2px solid var(--borde);
   border-radius: 14px;
   padding: 0.75rem 1rem;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, transform 0.15s;
 }
 .opcion:hover {
-  border-color: var(--azul);
-  background: #fff;
+  border-color: var(--azul-claro);
   transform: translateX(4px);
 }
 .opcion:disabled { opacity: 0.5; cursor: wait; }
 
 .tarjeta-feedback { border-top-color: var(--azul); }
-.tarjeta-feedback .tarjeta-tipo { color: var(--azul); }
+.tarjeta-feedback .tarjeta-tipo { color: var(--azul-claro); }
 .feedback-texto { font-size: 0.95rem; margin-bottom: 1rem; }
 
 .cambios { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.1rem; }
@@ -489,98 +552,192 @@ body {
   font-weight: 700;
   border-radius: 999px;
   padding: 0.28rem 0.7rem;
-  background: var(--papel-oscuro);
+  background: var(--superficie-alt);
 }
-.ficha.sube { background: #f8ddd3; color: var(--rojo); }
-.ficha.baja { background: #dde9d9; color: var(--verde); }
+.ficha.sube { background: rgba(193, 68, 46, 0.22); color: var(--rojo); }
+.ficha.baja { background: rgba(121, 176, 106, 0.2); color: var(--verde-vivo); }
 
 .tarjeta-final { border-top-color: var(--ocre); text-align: center; }
 .tarjeta-final .acciones { justify-content: center; margin-top: 1.2rem; }
 
 .oculto { display: none !important; }
 
-/* ============================== MODAL DE CRÉDITOS ============================== */
+/* ============================== CRÉDITOS RODANTES ============================== */
+/* Pantalla completa estilo fin de videojuego: espacio, estrellas,
+   el planeta asomando y el texto que rueda de abajo hacia arriba. */
 .modal-creditos {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
   border: none;
-  border-radius: 26px;
+  border-radius: 0;
   padding: 0;
-  width: min(92vw, 720px);
-  max-height: 84vh;
-  background: var(--papel);
-  color: var(--tinta);
-  box-shadow: 0 30px 80px rgba(13, 43, 69, 0.45);
+  background: radial-gradient(ellipse 120% 90% at 50% 110%, #0c2740 0%, #071525 45%, #02080f 100%);
+  color: #e9e4d6;
   overflow: hidden;
 }
-.modal-creditos[open] {
-  display: flex;
-  flex-direction: column;
-  animation: modal-entra 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
-}
-@keyframes modal-entra {
-  from { opacity: 0; transform: translateY(26px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.modal-creditos::backdrop {
-  background: rgba(13, 43, 69, 0.55);
-  backdrop-filter: blur(4px);
-}
+.modal-creditos[open] { animation: fundido 0.6s ease both; }
+@keyframes fundido { from { opacity: 0; } to { opacity: 1; } }
+.modal-creditos::backdrop { background: #000; }
 
-.modal-cabecera {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.3rem 1.8rem;
-  background: var(--azul-noche);
-  color: #fff;
+/* Cielo estrellado en dos capas con titileo */
+.creditos-estrellas,
+.creditos-estrellas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 34% 64%, #cfe4ff, transparent),
+    radial-gradient(1.8px 1.8px at 58% 14%, #fff, transparent),
+    radial-gradient(1px 1px at 72% 48%, #ffe9b8, transparent),
+    radial-gradient(1.4px 1.4px at 88% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 22% 84%, #cfe4ff, transparent),
+    radial-gradient(1.6px 1.6px at 46% 38%, #fff, transparent),
+    radial-gradient(1px 1px at 64% 78%, #fff, transparent),
+    radial-gradient(1.3px 1.3px at 80% 88%, #ffe9b8, transparent),
+    radial-gradient(1px 1px at 5% 52%, #fff, transparent);
+  animation: titilar 5s ease-in-out infinite alternate;
 }
-.modal-titulo {
+.creditos-estrellas::after {
+  transform: translate(28px, 40px) scale(1.4);
+  animation-delay: 2.4s;
+  opacity: 0.6;
+}
+@keyframes titilar { from { opacity: 0.45; } to { opacity: 1; } }
+
+/* El planeta asoma desde abajo, como visto desde órbita */
+.creditos-planeta {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 58%);
+  opacity: 0.85;
+  filter: saturate(0.9);
+  pointer-events: none;
+}
+.creditos-planeta .planeta { --talla: min(70vh, 60vw); }
+
+/* El rodillo de texto */
+.creditos-rollo {
+  position: absolute;
+  left: 50%;
+  width: min(92vw, 660px);
+  text-align: center;
+  z-index: 5;
+  cursor: pointer;
+  animation: rodar 60s linear infinite;
+}
+@keyframes rodar {
+  from { transform: translate(-50%, 100vh); }
+  to   { transform: translate(-50%, -100%); }
+}
+.creditos-rollo:hover,
+.creditos-rollo.pausado { animation-play-state: paused; }
+
+.creditos-titulo {
   font-family: var(--display);
   font-weight: 800;
-  font-size: 1.45rem;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  color: #f2ecdc;
+  text-shadow: 0 0 30px rgba(233, 196, 106, 0.35);
 }
-.modal-titulo em { color: var(--ocre); font-style: italic; }
+.creditos-sub {
+  font-size: 0.85rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--ocre);
+  margin: 0.8rem 0 1rem;
+}
+
+.rol {
+  margin-top: 3.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ocre);
+  opacity: 0.9;
+}
+.nombre {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  color: #f2ecdc;
+  margin-top: 0.45rem;
+}
+.nombre-sec {
+  font-size: 0.95rem;
+  color: #b9c4cd;
+  margin-top: 0.5rem;
+  line-height: 1.65;
+}
+
+.creditos-refs {
+  list-style: none;
+  margin-top: 0.9rem;
+}
+.creditos-refs li {
+  font-size: 0.82rem;
+  color: #93a2ad;
+  padding: 0.32rem 0;
+  line-height: 1.5;
+}
+.creditos-refs em { color: #b9c4cd; }
+
+.creditos-coda {
+  font-style: italic;
+  color: #b9c4cd;
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+}
+.creditos-fin {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2.4rem;
+  letter-spacing: 0.4em;
+  color: var(--ocre);
+  margin: 5rem 0 30vh;
+  text-shadow: 0 0 26px rgba(233, 196, 106, 0.45);
+}
+
 .modal-cerrar {
-  background: rgba(255, 255, 255, 0.12);
+  position: absolute;
+  top: 1.1rem;
+  right: 1.2rem;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
-  width: 2.3rem;
-  height: 2.3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
 }
 .modal-cerrar:hover { background: var(--naranja); transform: rotate(90deg); }
 
-.modal-cuerpo { padding: 1.6rem 1.8rem 1.9rem; overflow-y: auto; }
-
-.bloque-credito {
-  background: #fffdf7;
-  border-radius: 20px;
-  padding: 1.3rem 1.6rem;
-  margin-bottom: 1.1rem;
-  border-left: 7px solid var(--verde);
-  box-shadow: 0 8px 24px rgba(13, 43, 69, 0.08);
-}
-.bloque-credito h3 {
-  font-family: var(--display);
-  font-size: 1.15rem;
-  color: var(--verde);
-  margin-bottom: 0.5rem;
-}
-.bloque-credito p { font-size: 0.93rem; }
-
-.referencias { list-style: none; }
-.referencias li {
-  font-size: 0.86rem;
-  color: var(--tinta-suave);
-  padding: 0.32rem 0;
-  border-bottom: 1px dashed rgba(32, 48, 60, 0.15);
+.creditos-ayuda {
+  position: absolute;
+  bottom: 0.9rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(233, 228, 214, 0.45);
+  pointer-events: none;
 }
 
 /* ============================== RESPONSIVE ============================== */
-/* En pantallas pequeñas se permite scroll: caber a la fuerza sería ilegible */
 @media (max-width: 980px) {
   .pagina-inicio, .pagina-juego { height: auto; overflow: auto; }
   .portada { grid-template-columns: 1fr; text-align: center; padding-top: 2.5rem; }
