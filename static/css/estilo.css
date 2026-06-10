@@ -113,10 +113,21 @@ body {
           brightness(calc(1.02 - var(--deg) * 0.42));
 }
 
-.planeta-continentes,
-.planeta-nubes {
+/* Capas giratorias: el doble de anchas con la textura repetida dos veces.
+   Giran con transform (compuesto en GPU, sin repintar) en vez de
+   background-position, lo que evita el tironeo aun con filtros y feTurbulence. */
+.planeta > .planeta-continentes,
+.planeta > .planeta-nubes {
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  width: 400%;                      /* dos copias del mapa, cada una a 2× el ancho del planeta */
+  height: 100%;
   background-repeat: repeat-x;
-  background-size: 200% 100%;
+  background-size: 50% 100%;        /* cada copia = 2× planeta => se ve medio mundo (como esfera) */
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .planeta-continentes {
@@ -135,8 +146,8 @@ body {
 }
 
 @keyframes girar {
-  from { background-position-x: 0%; }
-  to   { background-position-x: -200%; }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 .planeta-smog {
@@ -621,6 +632,10 @@ body {
   pointer-events: none;
 }
 .creditos-planeta .planeta { --talla: min(70vh, 60vw); }
+/* En los créditos el planeta no cambia de salud: el smog y el destello no
+   aplican, pero las nubes sí se conservan (ahora son baratas con transform). */
+.creditos-planeta .planeta-smog,
+.creditos-planeta .planeta-flash { display: none; }
 
 /* El rodillo de texto */
 .creditos-rollo {
@@ -631,6 +646,9 @@ body {
   z-index: 5;
   cursor: pointer;
   animation: rodar 46s linear infinite;
+  will-change: transform;        /* capa propia de GPU: scroll fluido */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 @keyframes rodar {
   from { transform: translate(-50%, 100vh); }
