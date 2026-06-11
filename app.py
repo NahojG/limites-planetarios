@@ -7,10 +7,22 @@ import os
 
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
-from game import motor
+from game import motor, visitas
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "holoceno-dev")
+
+
+@app.before_request
+def registrar_visita():
+    # Solo registramos páginas reales, no estáticos ni llamadas internas de la API.
+    if request.path.startswith(("/static", "/api")):
+        return
+    try:
+        visitas.registrar(request)
+    except OSError:
+        # Si falla la escritura (p. ej. disco de solo lectura) no rompemos la app.
+        pass
 
 
 @app.get("/")
