@@ -22,7 +22,7 @@ El videojuego puede jugarse directamente desde cualquier navegador moderno, sin 
 
 Durante aproximadamente 11.700 años, el Holoceno le ofreció a la humanidad un planeta excepcionalmente estable: un clima predecible, ecosistemas resilientes y ciclos biogeoquímicos en equilibrio que hicieron posible la agricultura, las ciudades y la civilización tal como la conocemos. En 2009, Johan Rockström y los científicos del Centro de Resiliencia de Estocolmo propusieron el marco de los nueve límites planetarios: los umbrales dentro de los cuales la humanidad puede operar con seguridad y más allá de los cuales el sistema terrestre corre el riesgo de cambios abruptos e irreversibles. Hoy, seis de esos nueve límites ya han sido transgredidos.
 
-Comprender este marco constituye uno de los objetivos centrales del Módulo 4 de la Cátedra Ambiental. En esa dirección, este trabajo propone el desarrollo de un recurso pedagógico interactivo: el videojuego educativo *Guardianes del Holoceno*. En él, la persona que juega asume la responsabilidad de gobernar el planeta y experimenta, de manera vivencial, cómo las decisiones colectivas pueden degradar o restaurar las condiciones que sostienen la vida en la Tierra. Así, el juego convierte los conceptos abordados en la cartilla del módulo —los límites planetarios, el Antropoceno y el Capitaloceno, la cultura de los límites y la justicia socioambiental— en mecánicas concretas, dilemas con consecuencias y una representación visual del estado del sistema terrestre.
+Comprender este marco constituye uno de los objetivos centrales del Módulo 4 de la Cátedra Ambiental. En esa dirección, este trabajo propone el desarrollo de un recurso pedagógico interactivo: el videojuego educativo *Guardianes del Holoceno*. En él, la persona que juega asume la responsabilidad de gobernar el planeta y experimenta, de manera vivencial, cómo las decisiones colectivas pueden degradar o restaurar las condiciones que sostienen la vida en la Tierra. Así, el juego convierte los conceptos abordados en la cartilla del módulo los límites planetarios, el Antropoceno y el Capitaloceno, la cultura de los límites y la justicia socioambiental en mecánicas concretas, dilemas con consecuencias y una representación visual del estado del sistema terrestre.
 
 Este documento presenta el proyecto: sus objetivos, la descripción detallada del interactivo y los enlaces de acceso a la versión desplegada en la web y al código fuente abierto.
 
@@ -37,7 +37,7 @@ Diseñar y desarrollar un videojuego educativo interactivo, accesible desde la w
 - Traducir los nueve límites planetarios definidos por Rockström *et al.* (2009) y actualizados por Steffen *et al.* (2015), Persson *et al.* (2022) y Wang-Erlandsson *et al.* (2022) en variables medibles dentro de una mecánica de juego por turnos.
 - Representar visualmente la degradación y la recuperación del planeta mediante una Tierra animada y un diagrama radial que reflejan, en tiempo real, las consecuencias de cada decisión.
 - Integrar *pausas de saberes* (preguntas tipo quiz) que refuercen los conceptos clave de la cartilla y recompensen el aprendizaje aliviando los límites más transgredidos.
-- Evidenciar las dimensiones de justicia socioambiental —la responsabilidad diferenciada entre el Norte y el Sur global— y la noción de Capitaloceno como parte ineludible de la crisis planetaria.
+- Evidenciar las dimensiones de justicia socioambiental la responsabilidad diferenciada entre el Norte y el Sur global y la noción de Capitaloceno como parte ineludible de la crisis planetaria.
 - Desplegar la aplicación en un servidor público y liberar el código fuente para garantizar el acceso abierto, la reproducibilidad y el uso pedagógico del recurso.
 
 ## ¿De qué trata? El interactivo
@@ -72,7 +72,40 @@ El corazón visual del juego es una **Tierra animada que gira en pantalla** y qu
 
 ### Finales posibles
 
-La partida puede terminar de forma anticipada por un colapso social (si el bienestar se desploma) o un colapso planetario (si demasiados límites cruzan la zona de alto riesgo). Si se completa el recorrido hasta 2090, el resultado depende del estado final del planeta: 🟢 **Guardiana/Guardián del Holoceno** (espacio seguro recuperado sin sacrificar el bienestar), *Equilibrista planetario*, *Al borde del abismo* o 🔴 **Una herencia rota**. Cada final cierra con una reflexión de autores como Kallis, Hamilton o Latour, conectando la experiencia de juego con el pensamiento ambiental del módulo.
+El juego tiene seis desenlaces. Dos son *colapsos anticipados* que pueden interrumpir la partida en cualquier turno, y cuatro son *veredictos finales* que se otorgan al completar el recorrido hasta 2090. En todos los casos, lo que decide el final es el promedio de transgresión de los nueve límites y el nivel de bienestar social. Una regla atraviesa toda la partida y refuerza el mensaje del módulo: **no hay bienestar duradero fuera de la zona segura**. Cuando la degradación promedio es alta, el bienestar se erosiona turno a turno (sequías, desastres y desplazamientos) por más que la economía parezca prosperar.
+
+#### Colapsos anticipados
+
+Terminan la partida antes de 2090 si el planeta o la sociedad tocan fondo:
+
+- **🏚️ Colapso social:** El bienestar social llega a cero. Sin capacidad de acción colectiva no hay transición posible. El final recuerda, con la cartilla, que la sustentabilidad también exige justicia entre seres humanos: sin acuerdos sobre la vida común, ninguna política ambiental se sostiene.
+- **💀 Colapso planetario:** El sistema terrestre cambia de estado, ya sea porque la degradación promedio se vuelve extrema o porque varios límites se disparan al máximo simultáneamente. El final evoca el modelo *World3* de *Los límites del crecimiento* (1972), que anticipó una crisis del *business-as-usual* entre 2030 y 2040.
+
+#### Veredictos al llegar a 2090
+
+Si se completa el recorrido, el estado final del planeta determina cuál de estos cuatro finales se obtiene, ordenados del mejor al peor:
+
+- **🌱 Guardiana/Guardián del Holoceno:** El mejor desenlace. Devolviste a la humanidad a un espacio operativo seguro *sin sacrificar el bienestar*: viviste con menos para vivir mejor. Requiere una degradación promedio baja y, a la vez, un bienestar alto (las dos cosas al tiempo), encarnando la idea de que los límites no son escasez, sino la condición para que la vida continúe.
+- **🌍 Equilibrista planetario:** Mantuviste el sistema lejos del colapso, aunque varios límites siguen transgredidos. La reflexión apela a la *cultura de los límites* de **Giorgos Kallis**: la autolimitación es la condición para exigirle a la economía y a la política el respeto a los límites.
+- **⚠️ Al borde del abismo:** El planeta llega a 2090 herido, con la mayoría de los límites en zona de riesgo o transgredidos. Cita a **Clive Hamilton**: incluso si detuviéramos todo hoy, podría tardar siglos volver a las maravillosas condiciones del Holoceno.
+- **🔥 Una herencia rota:** El peor desenlace de 2090: las generaciones futuras heredan un planeta hostil. Recoge la advertencia de **Bruno Latour** sobre los «inverosímiles tiempos» en los que, mientras se nos anuncia el desastre, lo seguimos causando. El juego puede reiniciarse; el planeta real, no.
+
+#### Puntajes de cada desenlace
+
+Los umbrales se evalúan sobre dos cifras: la **transgresión promedio** de los nueve límites (0 = intactos, 100 = todos al máximo) y el **bienestar social** (0–100). Como el juego muestra en pantalla la *salud planetaria* (`= 100 − transgresión promedio`), se incluye también su equivalente:
+
+| Desenlace | ¿Cuándo? | Transgresión promedio | Salud planetaria | Bienestar |
+|---|---|:---:|:---:|:---:|
+| 💀 **Colapso planetario** | En cualquier turno | ≥ 70 · o bien 3+ límites en ≥ 90 | ≤ 30 | — |
+| 🏚️ **Colapso social** | En cualquier turno | — | — | = 0 |
+| 🌱 **Guardiana/Guardián del Holoceno** | Al llegar a 2090 | < 42 | > 58 | ≥ 50 |
+| 🌍 **Equilibrista planetario** | Al llegar a 2090 | < 52 | > 48 | — |
+| ⚠️ **Al borde del abismo** | Al llegar a 2090 | < 64 | > 36 | — |
+| 🔥 **Una herencia rota** | Al llegar a 2090 | 64 – 69 | 31 – 36 | — |
+
+Los cuatro veredictos de 2090 se comprueban en ese orden y son excluyentes: se otorga el primero que se cumpla (por eso *Equilibrista* exige transgresión < 52 **pero sin llegar** a la condición de *Guardián*, y así sucesivamente). El mejor final es el único que impone dos condiciones a la vez (planeta sano **y** bienestar alto), reflejando que un espacio seguro sin justicia social no basta. Además, una regla continua penaliza cada turno el bienestar cuando la transgresión promedio es ≥ 58, de modo que dejar que el planeta se degrade arrastra tarde o temprano al colapso social.
+
+Cada final cierra, así, con una reflexión que conecta la experiencia de juego con el pensamiento ambiental del módulo.
 
 ### Cómo está construido
 
