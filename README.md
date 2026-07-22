@@ -62,7 +62,7 @@ El estado del planeta se mide a través de los nueve límites planetarios. Cada 
 
 ### Cómo se juega
 
-A lo largo de la partida tomas trece decisiones: diez *dilemas* de gobernanza intercalados con tres *pausas de saberes*. Cada dilema presenta una situación real —la matriz energética, alimentar al mundo, el secamiento de la Amazonía, el planeta plástico, el ciclo del agua verde, las ciudades, la meta del crecimiento (PIB), la geoingeniería, la pesca de arrastre y la negociación Norte–Sur global— con tres opciones de respuesta. Cada opción modifica los niveles de los límites y un indicador de bienestar social, y ofrece una retroalimentación que explica las consecuencias de la elección a la luz de la cartilla.
+A lo largo de la partida tomas trece decisiones: diez *dilemas* de gobernanza intercalados con tres *pausas de saberes*. Cada dilema presenta una situación real la matriz energética, alimentar al mundo, el secamiento de la Amazonía, el planeta plástico, el ciclo del agua verde, las ciudades, la meta del crecimiento (PIB), la geoingeniería, la pesca de arrastre y la negociación Norte–Sur global con tres opciones de respuesta. Cada opción modifica los niveles de los límites y un indicador de bienestar social, y ofrece una retroalimentación que explica las consecuencias de la elección a la luz de la cartilla.
 
 Las *pausas de saberes* son preguntas de opción múltiple sobre los contenidos del módulo (por ejemplo, cuántos límites planetarios existen, qué significa el «agua verde» o qué propone el concepto de *Capitaloceno*). Si aciertas, el conocimiento «sana»: se alivian automáticamente los dos límites más transgredidos. Así, el juego premia el aprendizaje como herramienta de transformación.
 
