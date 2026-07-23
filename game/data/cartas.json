@@ -2,22 +2,22 @@
   {
     "id": "energia",
     "titulo": "La matriz energética",
-    "contexto": "El mundo demanda más energía que nunca. Las sociedades capitalistas del Norte global han sido llamadas «sociedades depredadoras de energía». ¿Qué camino tomará tu gobierno planetario?",
+    "contexto": "El mundo demanda cada vez más energía. Como gobierno planetario, defines la matriz energética de las próximas décadas.",
     "opciones": [
       {
-        "texto": "Duplicar la extracción de carbón y petróleo: «no hay límites al crecimiento».",
-        "efectos": { "clima": 12, "aerosoles": 8, "oceanos": 4 },
+        "texto": "Ampliar la extracción de carbón y petróleo para asegurar energía abundante y barata.",
+        "efectos": { "clima": 15, "aerosoles": 10, "oceanos": 6 },
         "bienestar": 6,
         "feedback": "Elegiste la frase de Ronald Reagan (1983) que cita la cartilla: «No hay límites al crecimiento porque no hay límites a la inteligencia humana». El capitalismo fosilista acelera la gran aceleración: el CO₂ se dispara y los sumideros de la Tierra superan sus límites."
       },
       {
-        "texto": "Transición acelerada a energías renovables con inversión pública.",
+        "texto": "Acelerar la transición a energías renovables con inversión pública.",
         "efectos": { "clima": -8, "suelo": 2, "biosfera": 1 },
         "bienestar": -2,
         "feedback": "La transición tiene costos iniciales y la minería de minerales para paneles y turbinas también presiona los suelos, pero frenas el forzamiento climático. Riechmann (2005) lo llama cambiar las reglas de juego para un «mundo lleno»."
       },
       {
-        "texto": "Mantener la mezcla actual y esperar que el mercado decida.",
+        "texto": "Mantener la matriz actual y dejar que el mercado defina el ritmo del cambio.",
         "efectos": { "clima": 7, "aerosoles": 3 },
         "bienestar": 2,
         "feedback": "El «business-as-usual» es justo el escenario que el modelo World3 de Meadows y el Club de Roma simuló en Los límites del crecimiento: siguiendo el ritmo normal, entraríamos en crisis entre 2030 y 2040."
@@ -27,22 +27,22 @@
   {
     "id": "agricultura",
     "titulo": "Alimentar al mundo",
-    "contexto": "La agroindustria promete seguridad alimentaria, pero los fertilizantes industriales ya transgredieron los ciclos de nitrógeno y fósforo, uno de los límites más sobrepasados.",
+    "contexto": "Hay que producir más alimentos. Los fertilizantes industriales presionan los ciclos de nitrógeno y fósforo, uno de los límites más transgredidos. Defines la política agrícola.",
     "opciones": [
       {
         "texto": "Expandir la agroindustria intensiva con fertilizantes y monocultivos.",
-        "efectos": { "biogeoquimicos": 10, "suelo": 8, "biosfera": 6, "agua": 5 },
+        "efectos": { "biogeoquimicos": 13, "suelo": 10, "biosfera": 7, "agua": 6 },
         "bienestar": 5,
         "feedback": "Cuando se pregunta cuántos kilos de soya se pueden producir por hectárea, dice la cartilla, se dejan de lado variables constitutivas del ecosistema: los daños pueden permanecer invisibles… hasta que los ciclos de N y P colapsan."
       },
       {
-        "texto": "Impulsar agroecología y economías alimentarias locales.",
+        "texto": "Impulsar la agroecología y las economías alimentarias locales.",
         "efectos": { "biogeoquimicos": -7, "biosfera": -4, "suelo": -3 },
         "bienestar": -1,
         "feedback": "Las prácticas sustentables «conservan, protegen y restauran las relaciones bióticas» y se localizan en contextos y necesidades específicas, como propone la cartilla siguiendo a Leff (2004). Rinden menos a corto plazo, pero regeneran los ciclos."
       },
       {
-        "texto": "Apostar todo a cultivos transgénicos patentados.",
+        "texto": "Apostar por cultivos transgénicos patentados de alto rendimiento.",
         "efectos": { "biogeoquimicos": 4, "biosfera": 4 },
         "bienestar": 3,
         "feedback": "La cartilla pregunta: ¿quiénes poseen las patentes? ¿En qué medida afecta esto la economía de países productores sin acceso a ellas? La ciencia aquí no es espectadora neutral, sino parte interesada en el problema (Paarlberg, 2008)."
@@ -52,22 +52,22 @@
   {
     "id": "bosques",
     "titulo": "El pulmón que se seca",
-    "contexto": "«Ecosistemas enteros como la Amazonía están empezando a secarse parcialmente», advirtió Johan Rockström en 2022. La presión por tierras y madera no cede.",
+    "contexto": "La Amazonía y otros grandes bosques empiezan a secarse parcialmente (Rockström, 2022). Crece la presión por tierras y madera. Decides qué hacer con ellos.",
     "opciones": [
       {
         "texto": "Otorgar concesiones madereras y ganaderas a gran escala.",
-        "efectos": { "suelo": 12, "biosfera": 8, "agua": 8, "clima": 6 },
+        "efectos": { "suelo": 15, "biosfera": 10, "agua": 10, "clima": 7 },
         "bienestar": 4,
         "feedback": "La apropiación de la naturaleza, dice Hickel (2020), siempre fue el motor del crecimiento capitalista. El bosque se vuelve commodity: ganancia inmediata, pero el ciclo del agua verde se rompe y el clima lo paga."
       },
       {
-        "texto": "Restaurar bosques y reconocer derechos territoriales de comunidades.",
+        "texto": "Restaurar bosques y reconocer los derechos territoriales de las comunidades.",
         "efectos": { "suelo": -8, "biosfera": -5, "agua": -6, "clima": -3 },
         "bienestar": -1,
         "feedback": "El territorio es «el locus de los deseos, demandas y reclamos de la gente para reconstruir sus mundos de vida» (Leff, 2004). Restaurar con las comunidades regenera suelo, agua y biodiversidad a la vez."
       },
       {
-        "texto": "Convertir el bosque en un «ecosistema de servicios» y venderlo en bonos.",
+        "texto": "Gestionar el bosque como «ecosistema de servicios» y venderlo en bonos de carbono.",
         "efectos": { "suelo": 3, "biosfera": 2, "agua": 2 },
         "bienestar": 2,
         "feedback": "La cartilla advierte que reducir el ecosistema a cuantificación impone la visión de ciertos grupos sobre el territorio, por encima del valor social, cultural y simbólico que otros le atribuyen. El bosque resiste… por ahora."
@@ -77,23 +77,23 @@
   {
     "id": "plasticos",
     "titulo": "El planeta plástico",
-    "contexto": "En 2022, Persson y colegas declararon superado el límite de las «nuevas entidades»: los plásticos y microplásticos ya están fuera del espacio operativo seguro de la humanidad.",
+    "contexto": "En 2022 se declaró superado el límite de las «nuevas entidades»: plásticos y microplásticos ya están fuera del espacio operativo seguro de la humanidad (Persson et al., 2022). Defines la política sobre plásticos.",
     "opciones": [
       {
-        "texto": "Prohibir plásticos de un solo uso y montar una economía circular.",
+        "texto": "Prohibir los plásticos de un solo uso e implantar una economía circular.",
         "efectos": { "entidades": -10, "oceanos": -2 },
         "bienestar": -2,
         "feedback": "Las economías circulares «respetan los ciclos de la naturaleza, no generan residuos y convierten cada residuo de un proceso en la materia prima de otro» (Riechmann, 2005). La industria protesta, el océano respira."
       },
       {
-        "texto": "Confiar en programas de reciclaje voluntario de las corporaciones.",
+        "texto": "Confiar en programas voluntarios de reciclaje de las empresas.",
         "efectos": { "entidades": 6, "oceanos": 2 },
         "bienestar": 2,
         "feedback": "El discurso voluntarista del desarrollo sostenible, critica Leff (2004), promete equilibrio ecológico por la vía del mercado sin fundamento real. La producción de plástico virgen sigue creciendo."
       },
       {
-        "texto": "Seguir produciendo: ya se inventará algo para limpiarlo.",
-        "efectos": { "entidades": 12, "oceanos": 4, "biosfera": 3 },
+        "texto": "Mantener la producción actual y confiar en soluciones tecnológicas futuras.",
+        "efectos": { "entidades": 15, "oceanos": 5, "biosfera": 5 },
         "bienestar": 3,
         "feedback": "La fe en que la tecnología vencerá todos los obstáculos es, según Kallis (2019), el corazón de la cultura sin límites. Los objetos artificiales ya pesan más que toda la biomasa de la Tierra, recuerda la cartilla."
       }
@@ -102,7 +102,7 @@
   {
     "id": "agua",
     "titulo": "El ciclo del agua verde",
-    "contexto": "El agua verde —la lluvia, la evaporación, la humedad del suelo— es fundamental para la dinámica del sistema terrestre y ya está ampliamente perturbada (Wang-Erlandsson et al., 2022).",
+    "contexto": "El agua verde (la lluvia, la evaporación, la humedad del suelo) ya está ampliamente perturbada (Wang-Erlandsson et al., 2022). Defines cómo gestionar el agua.",
     "opciones": [
       {
         "texto": "Construir megarrepresas y expandir el riego intensivo.",
@@ -111,13 +111,13 @@
         "feedback": "Controlar el agua no es lo mismo que cuidar su ciclo. La ingeniería pesada fragmenta ríos y humedales, y la humedad del suelo sigue cayendo: el límite del agua verde se transgrede más."
       },
       {
-        "texto": "Gestión comunitaria de cuencas y suelos vivos que retienen humedad.",
+        "texto": "Impulsar la gestión comunitaria de cuencas y suelos que retienen humedad.",
         "efectos": { "agua": -8, "suelo": -3, "biogeoquimicos": -2 },
         "bienestar": 0,
         "feedback": "Los bienes comunes administrados por asambleas, recuerda la cartilla, sostuvieron una «época dorada ecológica» antes de los cercamientos. Las cuencas gestionadas en común recuperan su ciclo."
       },
       {
-        "texto": "Privatizar el agua para que el precio regule el consumo.",
+        "texto": "Privatizar el agua para que el precio regule su consumo.",
         "efectos": { "agua": 6, "biogeoquimicos": 1 },
         "bienestar": -4,
         "feedback": "La privatización de bienes comunes como el agua fue pieza central del neoliberalismo (Harvey, 2005). El precio sube, el acceso se vuelve desigual y la presión sobre las fuentes no baja."
@@ -127,22 +127,22 @@
   {
     "id": "transporte",
     "titulo": "Ciudades en movimiento",
-    "contexto": "Carreteras, plástico, edificios y carros ya pesan más que los seres vivos del planeta. Las ciudades deciden cómo se mueve —y cuánto contamina— la mayoría de la humanidad.",
+    "contexto": "Las ciudades definen cómo se mueve y cuánto contamina la mayoría de la humanidad. Decides el modelo de movilidad urbana.",
     "opciones": [
       {
-        "texto": "Más autopistas y un auto privado para cada familia.",
+        "texto": "Construir más autopistas y promover un auto privado por familia.",
         "efectos": { "clima": 8, "aerosoles": 6, "entidades": 3, "suelo": 2 },
         "bienestar": 2,
         "feedback": "La tecnosfera crece: más asfalto, más emisiones, más partículas en el aire. El ideal de progreso como acumulación de objetos es justo lo que la cartilla describe como vida del colapso eco-social."
       },
       {
-        "texto": "Transporte público masivo y ciudades caminables.",
+        "texto": "Priorizar el transporte público masivo y las ciudades caminables.",
         "efectos": { "clima": -5, "aerosoles": -5, "entidades": -1 },
         "bienestar": 4,
         "feedback": "¡Ganan el planeta y la gente! «Más calidad de vida, más tiempo para la vida, más aire sin contaminar»: el menos-es-más que propone la cartilla. Vivir con menos autos resultó vivir mejor."
       },
       {
-        "texto": "Reemplazar todos los autos de combustión por eléctricos.",
+        "texto": "Reemplazar los autos de combustión por vehículos eléctricos.",
         "efectos": { "clima": -2, "entidades": 3, "biosfera": 3, "suelo": 2 },
         "bienestar": 2,
         "feedback": "El clima mejora algo, pero la minería de litio y cobalto presiona ecosistemas del Sur global. Cambiar el motor sin cambiar el modelo: el Capitaloceno (Moore, 2020) también sabe pintarse de verde."
@@ -152,22 +152,22 @@
   {
     "id": "consumo",
     "titulo": "La meta del crecimiento",
-    "contexto": "El PIB pasó a ser meta en sí misma, dice la cartilla: no hay un punto en el que políticos o economistas digan «es suficiente». Tu gabinete económico exige una directriz.",
+    "contexto": "El crecimiento del PIB es el objetivo económico dominante. Tu gabinete económico te pide una directriz sobre consumo y producción.",
     "opciones": [
       {
-        "texto": "Estimular el consumo: publicidad, obsolescencia programada, crédito fácil.",
-        "efectos": { "entidades": 8, "clima": 6, "biosfera": 4, "biogeoquimicos": 3 },
+        "texto": "Estimular el consumo con publicidad, obsolescencia programada y crédito fácil.",
+        "efectos": { "entidades": 11, "clima": 8, "biosfera": 6, "biogeoquimicos": 5 },
         "bienestar": 5,
         "feedback": "El capitalismo ha generado seres humanos «narcisistas y cortoplacistas» que ya no consumen para vivir, sino «para acumular», advierte la cartilla. La economía celebra; los sumideros de la Tierra, no."
       },
       {
-        "texto": "Decrecer en lo superfluo: semana laboral corta, reparar en vez de comprar.",
+        "texto": "Reducir lo superfluo: semana laboral corta y reparar en vez de comprar.",
         "efectos": { "clima": -6, "entidades": -5, "biosfera": -3, "biogeoquimicos": -2 },
         "bienestar": 1,
         "feedback": "«Límites no quiere decir escasez, pero sí quiere decir aprender a vivir con menos para tener más» (cartilla, en diálogo con el decrecimiento de Hickel y Kallis). Menos producción inútil, más tiempo, más aire limpio: vivir con menos para vivir mejor."
       },
       {
-        "texto": "Crecimiento verde: producir igual, pero con ecoetiquetas.",
+        "texto": "Mantener el nivel de producción, pero con ecoetiquetas y estándares verdes.",
         "efectos": { "clima": 2, "entidades": 3, "biosfera": 1 },
         "bienestar": 3,
         "feedback": "La retórica del desarrollo sostenible, advierte Leff (2004), promete equilibrio ecológico «por la vía más eficaz: el crecimiento económico guiado por el libre mercado», sin demostrar que pueda revertir las leyes de la entropía."
@@ -177,22 +177,22 @@
   {
     "id": "geoingenieria",
     "titulo": "El termostato planetario",
-    "contexto": "Un consorcio tecnológico ofrece inyectar aerosoles en la estratósfera para enfriar la Tierra. La ciencia puede describir los riesgos, pero ¿quién decide si debemos hacerlo?",
+    "contexto": "Un consorcio tecnológico ofrece inyectar aerosoles en la estratósfera para enfriar la Tierra. Decides cómo responder al calentamiento.",
     "opciones": [
       {
-        "texto": "Autorizar la geoingeniería ya, sin consultar a nadie: los expertos saben.",
+        "texto": "Autorizar de inmediato la geoingeniería, con la decisión en manos de los expertos.",
         "efectos": { "clima": -8, "aerosoles": 14, "ozono": 7 },
         "bienestar": -3,
         "feedback": "La cartilla es clara: la ciencia nos dice cómo es el mundo, pero «no nos dice cómo debemos actuar en él». Reemplazar la deliberación democrática por decisiones de consultores y expertos enfría el clima… y rompe otros dos límites."
       },
       {
-        "texto": "Abrir una deliberación democrática global antes de intervenir el cielo.",
+        "texto": "Abrir una deliberación democrática global antes de intervenir el clima.",
         "efectos": { "clima": 3 },
         "bienestar": 3,
         "feedback": "Pierdes tiempo precioso frente al calentamiento, pero honras el reto que plantea el módulo: «la construcción de acuerdos sobre la vida común, incluyendo los acuerdos fundamentales sobre la naturaleza y nuestras relaciones con ella»."
       },
       {
-        "texto": "Captura natural de carbono: reforestación masiva y restauración de humedales.",
+        "texto": "Potenciar la captura natural de carbono: reforestación y restauración de humedales.",
         "efectos": { "clima": -5, "suelo": -4, "biosfera": -3, "agua": -3 },
         "bienestar": -1,
         "feedback": "En vez de un parche tecnológico, potencias los sumideros vivos. Como el criadero de peces de Dan Barber que cita la cartilla: una práctica que «invierte la destrucción existente y restablece las condiciones de una comunidad biótica»."
@@ -202,22 +202,22 @@
   {
     "id": "oceanos",
     "titulo": "El mar no es infinito",
-    "contexto": "Las flotas industriales piden ampliar la pesca de arrastre. Mientras tanto, el pH del océano sigue bajando por el CO₂ absorbido.",
+    "contexto": "Las flotas industriales piden ampliar la pesca de arrastre, mientras el pH del océano sigue bajando por el CO₂ absorbido. Defines la política pesquera y marina.",
     "opciones": [
       {
         "texto": "Ampliar la pesca industrial de arrastre en aguas internacionales.",
-        "efectos": { "biosfera": 8, "oceanos": 5 },
+        "efectos": { "biosfera": 11, "oceanos": 8 },
         "bienestar": 3,
         "feedback": "Cuando solo se pregunta «cuántos peces se pueden obtener», advierte la cartilla, se invisibilizan los daños al ecosistema. El fondo marino arrasado tarda siglos en recuperarse."
       },
       {
-        "texto": "Crear grandes áreas marinas protegidas: «medio planeta para la vida».",
+        "texto": "Crear grandes áreas marinas protegidas.",
         "efectos": { "biosfera": -6, "oceanos": -3 },
         "bienestar": -1,
         "feedback": "Sigues la propuesta de Edward Wilson (2016) en Half Earth, citado en la cartilla: dedicar la mitad del planeta a las demás formas de vida para frenar la sexta extinción."
       },
       {
-        "texto": "Acuicultura regenerativa, como el criadero que purifica el agua que devuelve.",
+        "texto": "Impulsar la acuicultura regenerativa.",
         "efectos": { "biosfera": -3, "oceanos": -2, "biogeoquimicos": -2 },
         "bienestar": 2,
         "feedback": "Como en Cómo me enamoré de un pez (Dan Barber, citado en la cartilla): un sistema tan saludable que purifica el agua, alimenta flamencos y peces, y además es rentable. Sustentabilidad en acto."
@@ -227,22 +227,22 @@
   {
     "id": "pacto",
     "titulo": "Norte y Sur global",
-    "contexto": "Es la cumbre climática decisiva. Los habitantes del Norte global contribuyen más a la crisis ecológica; los del Sur global son los más afectados. ¿Qué pacto impulsas?",
+    "contexto": "Es la cumbre climática decisiva. El Norte global contribuye más a la crisis ecológica; el Sur global es el más afectado. Defines qué pacto impulsar.",
     "opciones": [
       {
-        "texto": "Justicia climática: el Norte global financia la transición del Sur.",
+        "texto": "Que el Norte global financie la transición del Sur global.",
         "efectos": { "clima": -5, "biosfera": -3, "suelo": -3, "agua": -2, "entidades": -2 },
         "bienestar": 2,
         "feedback": "Reconoces lo que plantea el Capitaloceno (Moore, 2020): no todos los seres humanos son igualmente responsables del cambio planetario. Quien más contribuyó a la crisis, más aporta a resolverla. El pacto destraba avances en casi todos los frentes."
       },
       {
-        "texto": "Cada país por su cuenta: que cada quien cuide su pedazo.",
+        "texto": "Que cada país gestione por su cuenta sus emisiones y recursos.",
         "efectos": { "clima": 6, "biosfera": 4, "agua": 2 },
         "bienestar": -3,
         "feedback": "El sistema terrestre no conoce fronteras. Sin acuerdos comunes —el reto central de las sociedades democráticas según la cartilla— los límites planetarios se siguen transgrediendo por goteo."
       },
       {
-        "texto": "Pacto de mercado: créditos verdes con intereses y condiciones.",
+        "texto": "Financiar la transición del Sur mediante créditos con intereses y condiciones.",
         "efectos": { "clima": 2, "biosfera": 1 },
         "bienestar": 0,
         "feedback": "El Sur global ya vivió esto: con el neoliberalismo «perdieron la independencia económica y la posibilidad de orientar sus economías al beneficio de sus ciudadanos» (Harvey, 2005). La deuda crece más rápido que los bosques."

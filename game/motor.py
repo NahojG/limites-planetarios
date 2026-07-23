@@ -144,9 +144,11 @@ def _evaluar_fin(estado):
     criticos = sum(1 for n in niveles.values() if n >= 90)
 
     # La degradación ecológica erosiona el bienestar: sequías, desastres,
-    # desplazamientos. No hay bienestar duradero fuera de la zona segura.
-    if promedio >= 58:
-        estado["bienestar"] = max(0, estado["bienestar"] - (1 + round((promedio - 58) / 4)))
+    # desplazamientos. No hay bienestar duradero fuera de la zona segura. Cuanto
+    # más se degrada el planeta, más fuerte cae el bienestar, de modo que un
+    # desplome ecológico sostenido puede arrastrar a un colapso social.
+    if promedio >= 52:
+        estado["bienestar"] = max(0, estado["bienestar"] - (1 + round((promedio - 52) / 2)))
 
     if estado["bienestar"] <= 0:
         estado["terminado"] = True
