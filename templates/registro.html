@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block titulo %}Registro · Guardianes del Holoceno{% endblock %}
+{% block clase_cuerpo %}pagina-registro{% endblock %}
+{% block contenido %}
+<main class="registro">
+  <div class="registro-tarjeta">
+    <p class="sello">Cátedra Ambiental · Actividad del curso</p>
+    <h1 class="registro-titulo">Antes de gobernar el mundo…</h1>
+    <p class="registro-intro">
+      Tu docente ha abierto la <strong>
+      {% if semestre.prueba_activa == 1 %}primera medición (inicio del curso)
+      {% else %}segunda medición (fin del curso){% endif %}</strong>.
+      Regístrate para que tu partida quede asociada a ti y puedas comparar,
+      al final del semestre, cómo cambió tu forma de cuidar el planeta.
+    </p>
+
+    {% if error %}
+    <p class="registro-error">Necesitamos un correo válido para continuar.</p>
+    {% endif %}
+
+    <form class="registro-form" action="{{ url_for('registro_enviar') }}" method="post">
+      <label class="campo">
+        <span class="campo-etiqueta">Correo <em>*</em></span>
+        <input class="campo-entrada" type="email" name="correo" required
+               placeholder="tucorreo@udea.edu.co" autocomplete="email">
+      </label>
+
+      <label class="campo">
+        <span class="campo-etiqueta">Nombre</span>
+        <input class="campo-entrada" type="text" name="nombre"
+               placeholder="Opcional" autocomplete="name">
+      </label>
+
+      <div class="campo-fila">
+        <label class="campo">
+          <span class="campo-etiqueta">Sexo</span>
+          <select class="campo-entrada" name="sexo">
+            <option value="">Prefiero no decir</option>
+            <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </label>
+        <label class="campo">
+          <span class="campo-etiqueta">Edad</span>
+          <input class="campo-entrada" type="number" name="edad" min="10" max="99"
+                 placeholder="Opcional" inputmode="numeric">
+        </label>
+      </div>
+
+      <label class="campo">
+        <span class="campo-etiqueta">Programa</span>
+        <input class="campo-entrada" type="text" name="programa"
+               placeholder="Opcional, p. ej. Estadística" autocomplete="off">
+      </label>
+
+      <button class="boton boton-principal" type="submit">Comenzar la partida →</button>
+    </form>
+
+    <p class="registro-privacidad">
+      Solo el correo es obligatorio. Estos datos se usan únicamente con fines
+      pedagógicos dentro del curso para comparar las mediciones de inicio y fin
+      de semestre, y no se comparten con terceros.
+    </p>
+  </div>
+</main>
+{% endblock %}

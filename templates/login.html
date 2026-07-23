@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block titulo %}Panel docente · Guardianes del Holoceno{% endblock %}
+{% block clase_cuerpo %}pagina-registro{% endblock %}
+{% block contenido %}
+<main class="registro">
+  <div class="registro-tarjeta registro-tarjeta-angosta">
+    <p class="sello">Cátedra Ambiental · Panel docente</p>
+    <h1 class="registro-titulo">Acceso de la profesora</h1>
+    <p class="registro-intro">
+      Ingresa la contraseña del curso para abrir o cerrar las mediciones y
+      consultar las estadísticas de tus estudiantes.
+    </p>
+
+    {% if error %}
+    <p class="registro-error">Contraseña incorrecta.</p>
+    {% endif %}
+
+    <form class="registro-form" action="{{ url_for('panel_login') }}" method="post">
+      <label class="campo">
+        <span class="campo-etiqueta">Contraseña</span>
+        <input class="campo-entrada" type="password" name="clave" required
+               autocomplete="current-password" autofocus>
+      </label>
+      <button class="boton boton-principal" type="submit">Ingresar</button>
+    </form>
+
+    <p class="registro-privacidad">
+      <a class="enlace-volver" href="{{ url_for('inicio') }}">← Volver al inicio</a>
+    </p>
+  </div>
+</main>
+{% endblock %}

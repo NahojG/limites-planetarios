@@ -34,6 +34,21 @@ SECUENCIA = [
 ANIO_INICIAL = 2025
 ANIOS_POR_TURNO = 5
 
+# Etiquetas de los desenlaces para mostrarlos en el servidor (comparativo,
+# panel, estadísticas). Deben coincidir con las de static/js/juego.js.
+DESENLACES = {
+    "guardian": "🌱 Guardiana/Guardián del Holoceno",
+    "equilibrista": "🌍 Equilibrista planetario",
+    "al_borde": "⚠️ Al borde del abismo",
+    "herencia_rota": "🔥 Una herencia rota",
+    "colapso_planetario": "💀 Colapso planetario",
+    "colapso_social": "🏚️ Colapso social",
+}
+
+
+def etiqueta_desenlace(clave):
+    return DESENLACES.get(clave, "—")
+
 
 def nuevo_juego():
     return {
@@ -42,6 +57,9 @@ def nuevo_juego():
         "bienestar": 55,
         "terminado": False,
         "resultado": None,
+        # Historial de las decisiones de gobernanza (solo dilemas), en orden.
+        # Es la base del comparativo entre la Prueba 1 y la Prueba 2.
+        "decisiones": [],
     }
 
 
@@ -152,6 +170,17 @@ def _evaluar_fin(estado):
         estado["seguros"] = seguros
 
 
+def snapshot_final(estado):
+    """Resumen persistible de una partida terminada (para guardar en la base)."""
+    return {
+        "desenlace": estado.get("resultado"),
+        "salud_final": salud_planetaria(estado),
+        "bienestar_final": estado.get("bienestar"),
+        "niveles": {clave: round(nivel) for clave, nivel in estado["niveles"].items()},
+        "decisiones": estado.get("decisiones", []),
+    }
+
+
 def jugar_turno(estado, opcion):
     """Aplica la opción elegida para el turno actual. Devuelve el feedback."""
     turno = _turno_actual(estado)
@@ -170,6 +199,13 @@ def jugar_turno(estado, opcion):
         respuesta["feedback"] = elegida["feedback"]
         respuesta["efectos"] = elegida["efectos"]
         respuesta["bienestar"] = elegida["bienestar"]
+        # Registramos la decisión para poder comparar pruebas más adelante.
+        estado.setdefault("decisiones", []).append({
+            "indice": indice,
+            "titulo": carta["titulo"],
+            "opcion": opcion,
+            "texto": elegida["texto"],
+        })
     else:
         pregunta = QUIZ[indice]
         if not 0 <= opcion < len(pregunta["opciones"]):

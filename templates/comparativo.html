@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block titulo %}Tu planeta, antes y después · Guardianes del Holoceno{% endblock %}
+{% block clase_cuerpo %}pagina-panel{% endblock %}
+{% block contenido %}
+<main class="panel">
+  <header class="panel-cabecera">
+    <div>
+      <p class="sello">Cátedra Ambiental · Tu recorrido</p>
+      <h1 class="panel-titulo">Tu planeta, antes y después del curso</h1>
+    </div>
+    <a class="boton boton-secundario" href="{{ url_for('inicio') }}">Inicio</a>
+  </header>
+
+  <p class="comp-intro">
+    A la izquierda, la Tierra que dejaste en la <strong>medición de inicio</strong>;
+    a la derecha, la de <strong>fin de curso</strong>. Compara cómo cambió tu forma
+    de gobernar el planeta.
+  </p>
+
+  <section class="panel-tarjeta comp-resumen">
+    <div class="comp-col">
+      <p class="comp-etapa">Inicio del curso</p>
+      <p class="comp-desenlace">{{ etiqueta(r1.desenlace) }}</p>
+      <div class="comp-cifra"><span class="comp-n">{{ r1.salud_final }}</span><span class="comp-l">Salud planetaria</span></div>
+      <div class="comp-cifra"><span class="comp-n">{{ r1.bienestar_final }}</span><span class="comp-l">Bienestar social</span></div>
+    </div>
+    <div class="comp-flecha" aria-hidden="true">→</div>
+    <div class="comp-col comp-col-final">
+      <p class="comp-etapa">Fin del curso</p>
+      <p class="comp-desenlace">{{ etiqueta(r2.desenlace) }}</p>
+      {% set ds = r2.salud_final - r1.salud_final %}
+      {% set db_ = r2.bienestar_final - r1.bienestar_final %}
+      <div class="comp-cifra">
+        <span class="comp-n">{{ r2.salud_final }}</span>
+        <span class="comp-l">Salud planetaria
+          <span class="delta {{ 'mejora' if ds > 0 else ('empeora' if ds < 0 else 'igual') }}">
+            {{ '▲' if ds > 0 else ('▼' if ds < 0 else '=') }} {{ ds if ds <= 0 else '+' ~ ds }}
+          </span>
+        </span>
+      </div>
+      <div class="comp-cifra">
+        <span class="comp-n">{{ r2.bienestar_final }}</span>
+        <span class="comp-l">Bienestar social
+          <span class="delta {{ 'mejora' if db_ > 0 else ('empeora' if db_ < 0 else 'igual') }}">
+            {{ '▲' if db_ > 0 else ('▼' if db_ < 0 else '=') }} {{ db_ if db_ <= 0 else '+' ~ db_ }}
+          </span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel-tarjeta">
+    <h2 class="panel-subtitulo">Los nueve límites</h2>
+    <p class="panel-ayuda">Cada cifra es el nivel de transgresión (0 = intacto, 100 = al máximo). Bajar es mejorar.</p>
+    <table class="comp-tabla">
+      <thead>
+        <tr><th>Límite</th><th>Inicio</th><th>Fin</th><th>Cambio</th></tr>
+      </thead>
+      <tbody>
+        {% for lim in limites %}
+        {% set v1 = r1.niveles[lim.clave] %}
+        {% set v2 = r2.niveles[lim.clave] %}
+        {% set d = v2 - v1 %}
+        <tr>
+          <td>{{ lim.nombre }}</td>
+          <td class="num">{{ v1 }}</td>
+          <td class="num">{{ v2 }}</td>
+          <td class="num">
+            <span class="delta {{ 'mejora' if d < 0 else ('empeora' if d > 0 else 'igual') }}">
+              {{ '▼' if d < 0 else ('▲' if d > 0 else '=') }} {{ d if d >= 0 else d }}{{ '' }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel-tarjeta">
+    <h2 class="panel-subtitulo">Decisiones que cambiaste</h2>
+    {% if cambios %}
+    <ul class="comp-cambios">
+      {% for c in cambios %}
+      <li>
+        <p class="comp-cambio-titulo">{{ c.titulo }}</p>
+        <p class="comp-cambio-antes"><span>Antes:</span> {{ c.antes }}</p>
+        <p class="comp-cambio-despues"><span>Después:</span> {{ c.despues }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="panel-ayuda">Tomaste las mismas decisiones en ambas mediciones.</p>
+    {% endif %}
+  </section>
+
+  <div class="acciones comp-acciones">
+    <form action="{{ url_for('nueva_partida') }}" method="post">
+      <button class="boton boton-secundario" type="submit">Jugar de nuevo</button>
+    </form>
+  </div>
+</main>
+{% endblock %}

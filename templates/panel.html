@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block titulo %}Panel docente · Guardianes del Holoceno{% endblock %}
+{% block clase_cuerpo %}pagina-panel{% endblock %}
+{% block contenido %}
+<main class="panel">
+  <header class="panel-cabecera">
+    <div>
+      <p class="sello">Cátedra Ambiental · Panel docente</p>
+      <h1 class="panel-titulo">Guardianes del Holoceno</h1>
+    </div>
+    <div class="panel-cabecera-acciones">
+      <a class="boton boton-principal" href="{{ url_for('estadisticas') }}">Ver estadísticas</a>
+      <form action="{{ url_for('panel_salir') }}" method="post">
+        <button class="boton boton-secundario" type="submit">Cerrar sesión</button>
+      </form>
+    </div>
+  </header>
+
+  {% if not disponible %}
+  <section class="panel-tarjeta panel-aviso">
+    <h2>Base de datos no configurada</h2>
+    <p>
+      Para registrar estudiantes y guardar resultados, define la variable de
+      entorno <code>DATABASE_URL</code> (el servicio de PostgreSQL de Railway).
+      Mientras tanto el juego funciona en modo libre y anónimo.
+    </p>
+  </section>
+  {% else %}
+
+  <section class="panel-tarjeta">
+    <h2 class="panel-subtitulo">Semestre en curso</h2>
+    {% if semestre %}
+    <p class="panel-semestre">{{ semestre.nombre }}</p>
+    <p class="panel-estado-prueba">
+      Estado actual:
+      {% if semestre.prueba_activa == 1 %}
+        <strong class="etiqueta etiqueta-1">Prueba 1 abierta (inicio del curso)</strong>
+      {% elif semestre.prueba_activa == 2 %}
+        <strong class="etiqueta etiqueta-2">Prueba 2 abierta (fin del curso)</strong>
+      {% else %}
+        <strong class="etiqueta etiqueta-0">Actividad cerrada</strong>
+      {% endif %}
+    </p>
+
+    <div class="panel-metricas">
+      <div class="metrica"><span class="metrica-n">{{ conteos.estudiantes }}</span><span class="metrica-t">estudiantes registrados</span></div>
+      <div class="metrica"><span class="metrica-n">{{ conteos.prueba1 }}</span><span class="metrica-t">completaron la Prueba 1</span></div>
+      <div class="metrica"><span class="metrica-n">{{ conteos.prueba2 }}</span><span class="metrica-t">completaron la Prueba 2</span></div>
+      <div class="metrica"><span class="metrica-n">{{ conteos.ambas }}</span><span class="metrica-t">hicieron las dos</span></div>
+    </div>
+
+    <div class="panel-controles">
+      <form action="{{ url_for('panel_prueba') }}" method="post">
+        <input type="hidden" name="prueba" value="1">
+        <button class="boton boton-principal" type="submit"
+          {% if semestre.prueba_activa == 1 %}disabled{% endif %}>Abrir Prueba 1</button>
+      </form>
+      <form action="{{ url_for('panel_prueba') }}" method="post">
+        <input type="hidden" name="prueba" value="2">
+        <button class="boton boton-principal" type="submit"
+          {% if semestre.prueba_activa == 2 %}disabled{% endif %}>Abrir Prueba 2</button>
+      </form>
+      <form action="{{ url_for('panel_prueba') }}" method="post">
+        <input type="hidden" name="prueba" value="0">
+        <button class="boton boton-secundario" type="submit"
+          {% if semestre.prueba_activa == 0 %}disabled{% endif %}>Cerrar actividad</button>
+      </form>
+    </div>
+
+    <p class="panel-ayuda">
+      Abre la <strong>Prueba 1</strong> al comenzar el curso y la
+      <strong>Prueba 2</strong> al final. Cierra la actividad cuando no quieras
+      que se registren más partidas.
+    </p>
+    {% else %}
+    <p class="panel-intro">Aún no has creado ningún semestre. Crea el primero abajo.</p>
+    {% endif %}
+  </section>
+
+  <section class="panel-tarjeta">
+    <h2 class="panel-subtitulo">Nuevo semestre</h2>
+    <p class="panel-ayuda">
+      Al crear un semestre nuevo, el actual se <strong>archiva</strong> (sus
+      datos quedan guardados) y se empieza a recolectar desde cero.
+    </p>
+    <form class="panel-nuevo" action="{{ url_for('panel_semestre') }}" method="post"
+          onsubmit="return confirm('Se archivará el semestre actual y se iniciará uno nuevo. ¿Continuar?');">
+      <input class="campo-entrada" type="text" name="nombre" required
+             placeholder="Nombre, p. ej. 2026-2" maxlength="60">
+      <button class="boton boton-principal" type="submit">Iniciar semestre</button>
+    </form>
+  </section>
+
+  {% endif %}
+</main>
+{% endblock %}

@@ -226,6 +226,7 @@ async function decidir(opcion) {
 
   const { respuesta, estado } = datos;
   ultimoEstado = estado;
+  if (respuesta.comparativo) hayComparativo = true;
 
   // Mostrar consecuencias
   $("tarjeta").classList.add("oculto");
@@ -246,19 +247,25 @@ async function decidir(opcion) {
   bloqueado = false;
 }
 
+function mostrarFinal() {
+  const resultado = RESULTADOS[ultimoEstado.resultado] || RESULTADOS.equilibrista;
+  $("final-titulo").textContent = resultado.titulo;
+  $("final-texto").textContent = resultado.texto;
+  if (hayComparativo) $("ver-comparativo").classList.remove("oculto");
+  $("final").classList.remove("oculto");
+}
+
 function continuar() {
   $("feedback").classList.add("oculto");
   if (ultimoEstado.terminado) {
-    const resultado = RESULTADOS[ultimoEstado.resultado] || RESULTADOS.equilibrista;
-    $("final-titulo").textContent = resultado.titulo;
-    $("final-texto").textContent = resultado.texto;
-    $("final").classList.remove("oculto");
+    mostrarFinal();
   } else {
     pintarTarjeta(ultimoEstado);
   }
 }
 
 let ultimoEstado = null;
+let hayComparativo = false;
 
 async function iniciar() {
   const res = await fetch("/api/estado");
@@ -267,10 +274,7 @@ async function iniciar() {
   pintarMedidores(ultimoEstado);
   pintarDiagrama(ultimoEstado.limites);
   if (ultimoEstado.terminado) {
-    const resultado = RESULTADOS[ultimoEstado.resultado] || RESULTADOS.equilibrista;
-    $("final-titulo").textContent = resultado.titulo;
-    $("final-texto").textContent = resultado.texto;
-    $("final").classList.remove("oculto");
+    mostrarFinal();
     $("tarjeta").classList.add("oculto");
   } else {
     pintarTarjeta(ultimoEstado);

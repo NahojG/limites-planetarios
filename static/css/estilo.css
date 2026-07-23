@@ -770,3 +770,306 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .planeta-continentes, .planeta-nubes { animation: none; }
 }
+
+/* ============================================================
+   Registro del estudiante (actividad del curso)
+   ============================================================ */
+.registro {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+}
+.registro-tarjeta {
+  width: min(560px, 100%);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+  box-shadow: 0 24px 60px -30px var(--sombra);
+}
+.registro-titulo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  color: var(--titulo);
+  line-height: 1.1;
+  margin: 0.6rem 0 0.5rem;
+}
+.registro-intro {
+  color: var(--texto-suave);
+  margin-bottom: 1.4rem;
+}
+.registro-error {
+  background: color-mix(in srgb, var(--naranja) 18%, transparent);
+  border: 1px solid var(--naranja);
+  color: var(--rojo);
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.registro-form { display: flex; flex-direction: column; gap: 1rem; }
+.campo { display: flex; flex-direction: column; gap: 0.35rem; }
+.campo-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.campo-etiqueta {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--texto);
+}
+.campo-etiqueta em { color: var(--naranja); font-style: normal; }
+.campo-entrada {
+  font-family: var(--cuerpo);
+  font-size: 1rem;
+  color: var(--texto);
+  background: var(--superficie-alt);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.campo-entrada::placeholder { color: var(--texto-suave); opacity: 0.7; }
+.campo-entrada:focus {
+  outline: none;
+  border-color: var(--azul-claro);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--azul) 30%, transparent);
+}
+.registro-form .boton { margin-top: 0.4rem; }
+.registro-privacidad {
+  margin-top: 1.3rem;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  line-height: 1.45;
+}
+
+@media (max-width: 420px) {
+  .campo-fila { grid-template-columns: 1fr; }
+}
+.registro-tarjeta-angosta { width: min(420px, 100%); }
+.enlace-volver { color: var(--azul-claro); text-decoration: none; }
+.enlace-volver:hover { text-decoration: underline; }
+
+/* ============================================================
+   Panel docente
+   ============================================================ */
+.panel {
+  width: min(880px, 100%);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+.panel-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+.panel-titulo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--titulo);
+  line-height: 1.1;
+}
+.panel-tarjeta {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  padding: clamp(1.3rem, 3vw, 2rem);
+  margin-bottom: 1.4rem;
+  box-shadow: 0 20px 50px -34px var(--sombra);
+}
+.panel-subtitulo {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--titulo);
+  margin-bottom: 0.8rem;
+}
+.panel-aviso code {
+  background: var(--superficie-alt);
+  padding: 0.1rem 0.35rem;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+.panel-semestre {
+  font-family: var(--display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--verde-vivo);
+  line-height: 1.1;
+}
+.panel-estado-prueba { color: var(--texto-suave); margin: 0.5rem 0 1.2rem; }
+.etiqueta {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+.etiqueta-1 { background: color-mix(in srgb, var(--verde) 22%, transparent); color: var(--verde-vivo); }
+.etiqueta-2 { background: color-mix(in srgb, var(--ocre) 25%, transparent); color: var(--ocre); }
+.etiqueta-0 { background: color-mix(in srgb, var(--texto-suave) 20%, transparent); color: var(--texto-suave); }
+.panel-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+.metrica {
+  background: var(--superficie-alt);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+.metrica-n {
+  display: block;
+  font-family: var(--display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--titulo);
+}
+.metrica-t { font-size: 0.82rem; color: var(--texto-suave); }
+.panel-controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.panel-controles .boton[disabled] { opacity: 0.45; cursor: not-allowed; }
+.panel-ayuda { font-size: 0.88rem; color: var(--texto-suave); line-height: 1.5; }
+.panel-nuevo { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.9rem; }
+.panel-nuevo .campo-entrada { flex: 1 1 220px; }
+
+/* ============================================================
+   Comparativo del estudiante (Prueba 1 vs Prueba 2)
+   ============================================================ */
+.comp-intro { color: var(--texto-suave); margin-bottom: 1.4rem; max-width: 60ch; }
+.comp-resumen {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.2rem;
+  align-items: center;
+}
+.comp-col { text-align: center; }
+.comp-col-final .comp-desenlace { color: var(--titulo); }
+.comp-etapa {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--texto-suave);
+}
+.comp-desenlace {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--texto);
+  margin: 0.3rem 0 1rem;
+}
+.comp-cifra { margin: 0.5rem 0; }
+.comp-n {
+  display: block;
+  font-family: var(--display);
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--titulo);
+  line-height: 1;
+}
+.comp-l { font-size: 0.8rem; color: var(--texto-suave); }
+.comp-flecha { font-size: 2rem; color: var(--azul-claro); }
+.delta { font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+.delta.mejora { color: var(--verde-vivo); }
+.delta.empeora { color: var(--rojo); }
+.delta.igual { color: var(--texto-suave); }
+.comp-tabla { width: 100%; border-collapse: collapse; margin-top: 0.6rem; }
+.comp-tabla th, .comp-tabla td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--borde);
+  text-align: left;
+}
+.comp-tabla th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--texto-suave);
+}
+.comp-tabla td.num, .comp-tabla th:not(:first-child) { text-align: right; }
+.comp-cambios { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.comp-cambios li {
+  border-left: 3px solid var(--azul);
+  padding-left: 0.9rem;
+}
+.comp-cambio-titulo { font-weight: 700; color: var(--titulo); margin-bottom: 0.3rem; }
+.comp-cambio-antes, .comp-cambio-despues { font-size: 0.9rem; color: var(--texto-suave); }
+.comp-cambio-antes span { color: var(--rojo); font-weight: 700; }
+.comp-cambio-despues span { color: var(--verde-vivo); font-weight: 700; }
+.comp-acciones { margin-top: 0.5rem; }
+
+@media (max-width: 560px) {
+  .comp-resumen { grid-template-columns: 1fr; }
+  .comp-flecha { transform: rotate(90deg); }
+}
+
+/* ============================================================
+   Estadísticas de la profesora (Chart.js)
+   ============================================================ */
+.panel-ancho { width: min(1080px, 100%); }
+.panel-cabecera-acciones { display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap; }
+.tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+.tab {
+  font-family: var(--cuerpo);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--texto-suave);
+  background: var(--superficie-alt);
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.tab:hover { color: var(--texto); }
+.tab.activo {
+  color: var(--azul-noche);
+  background: var(--azul-claro);
+  border-color: var(--azul-claro);
+}
+.tab-panel { display: none; }
+.tab-panel.activo { display: block; }
+.grafico-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+.grafico {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem 1.3rem;
+}
+.grafico-ancho { grid-column: 1 / -1; }
+.grafico figcaption {
+  font-weight: 700;
+  color: var(--titulo);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.lienzo { position: relative; height: 260px; }
+.grafico-ancho .lienzo { height: 320px; }
+.leyenda-zonas { display: inline-flex; gap: 0.7rem; font-size: 0.72rem; font-weight: 500; color: var(--texto-suave); }
+.leyenda-zonas span { display: inline-flex; align-items: center; gap: 0.28rem; }
+.leyenda-zonas i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.zona-segura { background: var(--verde-vivo); }
+.zona-riesgo { background: var(--ocre); }
+.zona-alto { background: var(--rojo); }

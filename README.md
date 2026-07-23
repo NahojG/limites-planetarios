@@ -107,9 +107,15 @@ Los cuatro veredictos de 2090 se comprueban en ese orden y son excluyentes: se o
 
 Cada final cierra, así, con una reflexión que conecta la experiencia de juego con el pensamiento ambiental del módulo.
 
+### Actividad del curso: dos mediciones y estadísticas
+
+Además del juego libre, la plataforma incluye un modo pensado para usarse dentro del curso. La profesora abre desde un panel privado la **Prueba 1** al inicio del semestre y la **Prueba 2** al final. Cuando una prueba está abierta, cada estudiante se registra (el correo es el único dato obligatorio; nombre, sexo, edad y programa son opcionales) y su partida queda asociada a él. Al completar la Prueba 2, el estudiante ve un **comparativo** de su propio recorrido: cómo dejó el planeta al inicio frente al final del curso, el cambio en cada uno de los nueve límites y las decisiones de gobernanza que modificó.
+
+La profesora dispone de una **pestaña de estadísticas** protegida por contraseña que reúne tres momentos: los resultados agregados de la Prueba 1, los de la Prueba 2 y la comparación entre ambas (para quienes hicieron las dos). Se muestran la distribución de desenlaces, la salud y el bienestar promedio, la transgresión media de cada límite, la demografía del grupo y las tasas de participación. Toda la información es agregada, sin exponer datos individuales. Cada semestre puede reiniciarse: al abrir uno nuevo, el anterior se archiva y queda disponible para consulta.
+
 ### Cómo está construido
 
-El juego es una aplicación web desarrollada en Python con el microframework Flask. El motor del juego gestiona el estado, los efectos de cada decisión y las condiciones de fin; el contenido (límites, dilemas y preguntas) se basa directamente en la cartilla «Ciencia, conflictos y alternativas para el siglo XXI» (Orozco-Echeverri, Mira Bohórquez y Muñoz Fonnegra, UdeA). La interfaz emplea HTML, CSS animado y gráficos SVG para el planeta y el diagrama radial. La aplicación está desplegada en la plataforma Railway y su código es abierto.
+El juego es una aplicación web desarrollada en Python con el microframework Flask. El motor del juego gestiona el estado, los efectos de cada decisión y las condiciones de fin; el contenido (límites, dilemas y preguntas) se basa directamente en la cartilla «Ciencia, conflictos y alternativas para el siglo XXI» (Orozco-Echeverri, Mira Bohórquez y Muñoz Fonnegra, UdeA). La interfaz emplea HTML, CSS animado y gráficos SVG para el planeta y el diagrama radial, y la biblioteca Chart.js (servida localmente, sin CDN) para las estadísticas. El registro de estudiantes y los resultados de las pruebas se guardan en una base de datos PostgreSQL. La aplicación está desplegada en la plataforma Railway y su código es abierto.
 
 ## Documentación técnica
 
@@ -123,22 +129,49 @@ python app.py
 # abre http://localhost:5000
 ```
 
+El juego libre funciona sin más configuración. Para probar el modo del curso (registro, pruebas y estadísticas) hace falta una base PostgreSQL y dos variables de entorno:
+
+```bash
+export DATABASE_URL="postgresql://usuario:clave@localhost:5432/holoceno"
+export PROFESOR_PASSWORD="una-clave-para-el-panel"
+python app.py
+```
+
+Sin `DATABASE_URL`, la aplicación arranca igual pero en modo de juego libre y anónimo (no se registra ni se guarda nada). Un PostgreSQL local rápido para desarrollo:
+
+```bash
+docker run -d --name holoceno-pg -e POSTGRES_PASSWORD=clave \
+  -e POSTGRES_DB=holoceno -p 5432:5432 postgres:16-alpine
+```
+
+### Variables de entorno
+
+| Variable | Para qué |
+|---|---|
+| `SECRET_KEY` | Firma las sesiones de Flask. Usa un valor aleatorio largo. |
+| `DATABASE_URL` | Cadena de conexión a PostgreSQL. Si falta, se desactiva el modo del curso. |
+| `PROFESOR_PASSWORD` | Contraseña del panel docente (`/panel`) y de las estadísticas. |
+
 ### Desplegar en Railway
 
 1. Sube esta carpeta a un repositorio de GitHub.
 2. En [railway.app](https://railway.app): **New Project → Deploy from GitHub repo**.
 3. Railway detecta Python con Nixpacks y usa el `Procfile` automáticamente.
-4. En **Variables**, agrega `SECRET_KEY` con un valor aleatorio largo.
-5. En **Settings → Networking**, genera el dominio público (`Generate Domain`).
+4. Añade una base de datos: **New → Database → Add PostgreSQL**. Railway inyecta `DATABASE_URL` automáticamente en el servicio de la app.
+5. En **Variables**, agrega `SECRET_KEY` (valor aleatorio largo) y `PROFESOR_PASSWORD` (la clave del panel).
+6. En **Settings → Networking**, genera el dominio público (`Generate Domain`).
+7. La profesora entra al panel en `TU-DOMINIO/panel`.
 
 ### Estructura
 
 ```
-app.py              # Rutas Flask y API del juego
-game/motor.py       # Motor: estado, efectos, condiciones de fin
+app.py              # Rutas Flask, API del juego, registro, panel y estadísticas
+game/motor.py       # Motor: estado, efectos, condiciones de fin, historial de decisiones
+game/db.py          # Capa PostgreSQL: semestres, estudiantes y resultados
+game/stats.py       # Agregaciones para la pestaña de estadísticas
 game/data/          # Límites, dilemas y quiz (contenido del módulo)
-templates/          # Inicio, juego y créditos (Jinja2)
-static/css|js|img   # Estilos, planeta animado, diagrama radial
+templates/          # Inicio, juego, registro, comparativo, panel, estadísticas (Jinja2)
+static/css|js|img   # Estilos, planeta animado, diagrama radial, Chart.js local
 ```
 
 ## Referencias

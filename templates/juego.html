@@ -67,8 +67,9 @@
       <h2 class="tarjeta-titulo" id="final-titulo"></h2>
       <p class="feedback-texto" id="final-texto"></p>
       <div class="acciones">
+        <a class="boton boton-principal oculto" id="ver-comparativo" href="{{ url_for('comparativo') }}">Ver mi comparativo →</a>
         <form action="{{ url_for('nueva_partida') }}" method="post">
-          <button class="boton boton-principal" type="submit">Jugar de nuevo</button>
+          <button class="boton boton-secundario" type="submit">Jugar de nuevo</button>
         </form>
         <button class="boton boton-secundario" type="button" data-abrir-creditos>Créditos</button>
       </div>

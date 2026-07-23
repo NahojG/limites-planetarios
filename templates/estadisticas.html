@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block titulo %}Estadísticas · Guardianes del Holoceno{% endblock %}
+{% block clase_cuerpo %}pagina-panel{% endblock %}
+{% block contenido %}
+<main class="panel panel-ancho">
+  <header class="panel-cabecera">
+    <div>
+      <p class="sello">Cátedra Ambiental · Estadísticas del curso</p>
+      <h1 class="panel-titulo">
+        {% if semestre %}Semestre {{ semestre.nombre }}{% else %}Estadísticas{% endif %}
+      </h1>
+    </div>
+    <a class="boton boton-secundario" href="{{ url_for('panel') }}">← Volver al panel</a>
+  </header>
+
+  {% if not datos %}
+  <section class="panel-tarjeta">
+    <p class="panel-intro">Aún no hay un semestre activo con datos. Crea uno desde el panel.</p>
+  </section>
+  {% else %}
+
+  <section class="panel-tarjeta">
+    <h2 class="panel-subtitulo">Participación</h2>
+    <div class="panel-metricas">
+      <div class="metrica"><span class="metrica-n">{{ datos.participacion.estudiantes }}</span><span class="metrica-t">registrados</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.participacion.prueba1 }}</span><span class="metrica-t">completaron Prueba 1</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.participacion.prueba2 }}</span><span class="metrica-t">completaron Prueba 2</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.participacion.ambas }}</span><span class="metrica-t">hicieron las dos</span></div>
+    </div>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab activo" data-tab="p1" role="tab">Prueba 1 · inicio</button>
+    <button class="tab" data-tab="p2" role="tab">Prueba 2 · fin</button>
+    <button class="tab" data-tab="comp" role="tab">Comparación</button>
+  </nav>
+
+  {# ---- Prueba 1 ---- #}
+  <section class="tab-panel activo" id="tab-p1">
+    <div class="panel-metricas">
+      <div class="metrica"><span class="metrica-n">{{ datos.prueba1.n }}</span><span class="metrica-t">partidas</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.prueba1.salud_prom }}</span><span class="metrica-t">salud promedio</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.prueba1.bienestar_prom }}</span><span class="metrica-t">bienestar promedio</span></div>
+    </div>
+    <div class="grafico-grid">
+      <figure class="grafico"><figcaption>Desenlaces</figcaption><div class="lienzo"><canvas id="p1-desenlaces"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Transgresión promedio por límite <span class="leyenda-zonas"><span><i class="zona-segura"></i>segura</span><span><i class="zona-riesgo"></i>riesgo</span><span><i class="zona-alto"></i>alto</span></span></figcaption><div class="lienzo"><canvas id="p1-limites"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Sexo</figcaption><div class="lienzo"><canvas id="p1-sexo"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Edad</figcaption><div class="lienzo"><canvas id="p1-edad"></canvas></div></figure>
+      <figure class="grafico grafico-ancho"><figcaption>Programa</figcaption><div class="lienzo"><canvas id="p1-programa"></canvas></div></figure>
+    </div>
+  </section>
+
+  {# ---- Prueba 2 ---- #}
+  <section class="tab-panel" id="tab-p2" hidden>
+    <div class="panel-metricas">
+      <div class="metrica"><span class="metrica-n">{{ datos.prueba2.n }}</span><span class="metrica-t">partidas</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.prueba2.salud_prom }}</span><span class="metrica-t">salud promedio</span></div>
+      <div class="metrica"><span class="metrica-n">{{ datos.prueba2.bienestar_prom }}</span><span class="metrica-t">bienestar promedio</span></div>
+    </div>
+    <div class="grafico-grid">
+      <figure class="grafico"><figcaption>Desenlaces</figcaption><div class="lienzo"><canvas id="p2-desenlaces"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Transgresión promedio por límite <span class="leyenda-zonas"><span><i class="zona-segura"></i>segura</span><span><i class="zona-riesgo"></i>riesgo</span><span><i class="zona-alto"></i>alto</span></span></figcaption><div class="lienzo"><canvas id="p2-limites"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Sexo</figcaption><div class="lienzo"><canvas id="p2-sexo"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Edad</figcaption><div class="lienzo"><canvas id="p2-edad"></canvas></div></figure>
+      <figure class="grafico grafico-ancho"><figcaption>Programa</figcaption><div class="lienzo"><canvas id="p2-programa"></canvas></div></figure>
+    </div>
+  </section>
+
+  {# ---- Comparación ---- #}
+  <section class="tab-panel" id="tab-comp" hidden>
+    <div class="panel-metricas">
+      <div class="metrica"><span class="metrica-n">{{ datos.comparacion.n }}</span><span class="metrica-t">hicieron ambas</span></div>
+      <div class="metrica"><span class="metrica-n" id="delta-salud">{{ datos.comparacion.salud_delta }}</span><span class="metrica-t">cambio de salud promedio</span></div>
+      <div class="metrica"><span class="metrica-n" id="delta-bienestar">{{ datos.comparacion.bienestar_delta }}</span><span class="metrica-t">cambio de bienestar promedio</span></div>
+    </div>
+    <div class="grafico-grid">
+      <figure class="grafico grafico-ancho"><figcaption>Desenlaces · inicio vs fin</figcaption><div class="lienzo"><canvas id="c-desenlaces"></canvas></div></figure>
+      <figure class="grafico grafico-ancho"><figcaption>Transgresión por límite · inicio vs fin</figcaption><div class="lienzo"><canvas id="c-limites"></canvas></div></figure>
+      <figure class="grafico grafico-ancho"><figcaption>Decisiones que más cambió el grupo</figcaption><div class="lienzo"><canvas id="c-decisiones"></canvas></div></figure>
+    </div>
+  </section>
+
+  <script type="application/json" id="datos-stats">{{ datos|tojson }}</script>
+  {% endif %}
+</main>
+{% endblock %}
+{% block scripts %}
+{% if datos %}
+<script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
+{% endif %}
+{% endblock %}
