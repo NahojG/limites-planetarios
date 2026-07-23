@@ -35,19 +35,19 @@ def _exigir_base(url_cli):
 
 def main():
     parser = argparse.ArgumentParser(description="Puebla la base con datos de demostración.")
-    parser.add_argument("-n", type=int, default=40, help="cantidad de estudiantes (por defecto 40)")
-    parser.add_argument("--semestre", default="DEMO", help="nombre del semestre (por defecto DEMO)")
+    parser.add_argument("-n", type=int, default=40, help="estudiantes por semestre (por defecto 40)")
+    parser.add_argument("-s", "--semestres", type=int, default=5, help="cantidad de semestres (por defecto 5)")
     parser.add_argument("--seed", type=int, default=None, help="semilla aleatoria (opcional)")
     parser.add_argument("--url", default=None, help="cadena de conexión (si DATABASE_URL no está en el entorno)")
     args = parser.parse_args()
 
     _exigir_base(args.url)
 
-    print(f"Poblando la base con {args.n} estudiantes ficticios…")
-    res = demo.poblar(n=args.n, nombre=args.semestre, seed=args.seed)
-    print(f"Listo: semestre «{res['semestre']}» · {res['prueba1']} con Prueba 1 · "
-          f"{res['prueba2']} con Prueba 2.")
-    print("Entra al panel y abre «Ver estadísticas» para visualizarlas.")
+    print(f"Poblando la base con {args.semestres} semestres de {args.n} estudiantes ficticios…")
+    res = demo.poblar_varios(semestres=args.semestres, n=args.n, seed=args.seed)
+    for d in res["detalle"]:
+        print(f"  {d['semestre']}: {d['prueba1']} con Prueba 1 · {d['prueba2']} con Prueba 2")
+    print("Listo. Entra al panel y abre «Ver estadísticas» para visualizarlas.")
 
 
 if __name__ == "__main__":

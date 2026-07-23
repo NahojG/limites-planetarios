@@ -288,7 +288,7 @@ def panel_prueba():
 @requiere_profesor
 def panel_demo_poblar():
     if db.disponible():
-        demo.poblar(n=40, nombre="DEMO")
+        demo.poblar_varios(semestres=5, n=40)
     return redirect(url_for("estadisticas"))
 
 

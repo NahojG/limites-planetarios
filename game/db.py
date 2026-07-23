@@ -193,6 +193,49 @@ def get_resultado(semestre_id, correo, prueba):
         ).fetchone()
 
 
+def insertar_estudiantes_lote(semestre_id, estudiantes):
+    """Inserta muchos estudiantes en una sola conexión (para datos de demo)."""
+    if not disponible() or not estudiantes:
+        return
+    filas = [
+        (semestre_id, e["correo"], e.get("nombre"), e.get("sexo"), e.get("edad"), e.get("programa"))
+        for e in estudiantes
+    ]
+    with _conectar() as conn:
+        conn.cursor().executemany(
+            "INSERT INTO estudiante (semestre_id, correo, nombre, sexo, edad, programa) "
+            "VALUES (%s, %s, %s, %s, %s, %s) "
+            "ON CONFLICT (semestre_id, correo) DO NOTHING",
+            filas,
+        )
+
+
+def insertar_resultados_lote(semestre_id, resultados):
+    """Inserta muchos resultados en una sola conexión (para datos de demo).
+
+    Cada elemento: {'correo', 'prueba', 'snapshot'} con el snapshot del motor.
+    """
+    if not disponible() or not resultados:
+        return
+    filas = [
+        (
+            semestre_id, r["correo"], int(r["prueba"]),
+            r["snapshot"].get("desenlace"), r["snapshot"].get("salud_final"),
+            r["snapshot"].get("bienestar_final"),
+            Jsonb(r["snapshot"].get("niveles")), Jsonb(r["snapshot"].get("decisiones")),
+        )
+        for r in resultados
+    ]
+    with _conectar() as conn:
+        conn.cursor().executemany(
+            "INSERT INTO resultado "
+            "(semestre_id, correo, prueba, desenlace, salud_final, bienestar_final, niveles, decisiones) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) "
+            "ON CONFLICT (semestre_id, correo, prueba) DO NOTHING",
+            filas,
+        )
+
+
 def borrar_todo():
     """Vacía por completo las tablas (semestres, estudiantes y resultados).
 
