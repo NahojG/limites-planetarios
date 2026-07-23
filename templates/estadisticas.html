@@ -2,6 +2,22 @@
 {% block titulo %}Estadísticas · Guardianes del Holoceno{% endblock %}
 {% block clase_cuerpo %}pagina-panel{% endblock %}
 {% block contenido %}
+{# Planeta promedio: degradación 0 (sano, salud>=70) a 1 (colapso, salud<=28). #}
+{% macro tierra(salud, etapa) %}
+  {% set deg = [0.0, [1.0, (70 - salud) / 42] | min] | max %}
+  <figure class="comp-planeta-col">
+    <p class="comp-etapa">{{ etapa }}</p>
+    <div class="planeta comp-planeta" style="--deg:{{ '%.3f' | format(deg) }}" aria-hidden="true">
+      <div class="planeta-oceano"></div>
+      <div class="planeta-continentes"></div>
+      <div class="planeta-nubes"></div>
+      <div class="planeta-smog"></div>
+      <div class="planeta-sombra"></div>
+      <div class="planeta-brillo"></div>
+    </div>
+    <figcaption class="comp-planeta-salud">Salud promedio <strong>{{ salud }}</strong></figcaption>
+  </figure>
+{% endmacro %}
 <main class="panel panel-ancho">
   <header class="panel-cabecera">
     <div>
@@ -42,6 +58,9 @@
       <div class="metrica"><span class="metrica-n">{{ datos.prueba1.salud_prom }}</span><span class="metrica-t">salud promedio</span></div>
       <div class="metrica"><span class="metrica-n">{{ datos.prueba1.bienestar_prom }}</span><span class="metrica-t">bienestar promedio</span></div>
     </div>
+    {% if datos.prueba1.n %}
+    <section class="panel-tarjeta stat-planeta-card">{{ tierra(datos.prueba1.salud_prom, 'Así dejó el grupo el planeta al inicio del curso') }}</section>
+    {% endif %}
     <div class="grafico-grid">
       <figure class="grafico"><figcaption>Desenlaces</figcaption><div class="lienzo"><canvas id="p1-desenlaces"></canvas></div></figure>
       <figure class="grafico"><figcaption>Transgresión promedio por límite <span class="leyenda-zonas"><span><i class="zona-segura"></i>segura</span><span><i class="zona-riesgo"></i>riesgo</span><span><i class="zona-alto"></i>alto</span></span></figcaption><div class="lienzo"><canvas id="p1-limites"></canvas></div></figure>
@@ -58,6 +77,9 @@
       <div class="metrica"><span class="metrica-n">{{ datos.prueba2.salud_prom }}</span><span class="metrica-t">salud promedio</span></div>
       <div class="metrica"><span class="metrica-n">{{ datos.prueba2.bienestar_prom }}</span><span class="metrica-t">bienestar promedio</span></div>
     </div>
+    {% if datos.prueba2.n %}
+    <section class="panel-tarjeta stat-planeta-card">{{ tierra(datos.prueba2.salud_prom, 'Así dejó el grupo el planeta al final del curso') }}</section>
+    {% endif %}
     <div class="grafico-grid">
       <figure class="grafico"><figcaption>Desenlaces</figcaption><div class="lienzo"><canvas id="p2-desenlaces"></canvas></div></figure>
       <figure class="grafico"><figcaption>Transgresión promedio por límite <span class="leyenda-zonas"><span><i class="zona-segura"></i>segura</span><span><i class="zona-riesgo"></i>riesgo</span><span><i class="zona-alto"></i>alto</span></span></figcaption><div class="lienzo"><canvas id="p2-limites"></canvas></div></figure>
@@ -74,6 +96,13 @@
       <div class="metrica"><span class="metrica-n" id="delta-salud">{{ datos.comparacion.salud_delta }}</span><span class="metrica-t">cambio de salud promedio</span></div>
       <div class="metrica"><span class="metrica-n" id="delta-bienestar">{{ datos.comparacion.bienestar_delta }}</span><span class="metrica-t">cambio de bienestar promedio</span></div>
     </div>
+    {% if datos.comparacion.n %}
+    <section class="panel-tarjeta comp-planetas">
+      {{ tierra(datos.comparacion.salud1_prom, 'Inicio del curso') }}
+      <div class="comp-flecha" aria-hidden="true">→</div>
+      {{ tierra(datos.comparacion.salud2_prom, 'Fin del curso') }}
+    </section>
+    {% endif %}
     <div class="grafico-grid">
       <figure class="grafico grafico-ancho"><figcaption>Desenlaces · inicio vs fin</figcaption><div class="lienzo"><canvas id="c-desenlaces"></canvas></div></figure>
       <figure class="grafico grafico-ancho"><figcaption>Transgresión por límite · inicio vs fin</figcaption><div class="lienzo"><canvas id="c-limites"></canvas></div></figure>

@@ -129,6 +129,8 @@ def comparacion(pares):
         "n": n,
         "salud_delta": d_salud,
         "bienestar_delta": d_bien,
+        "salud1_prom": _promedio([p["s1"] for p in pares]) if n else 0,
+        "salud2_prom": _promedio([p["s2"] for p in pares]) if n else 0,
         "desenlaces": {
             "etiquetas": DESENLACES_NOMBRES,
             "prueba1": [des1[c] for c in DESENLACES_ORDEN],

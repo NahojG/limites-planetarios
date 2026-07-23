@@ -1118,6 +1118,9 @@ body {
 .comp-planeta { --talla: min(34vw, 240px); margin: 0 auto; }
 .comp-planeta-salud { color: var(--texto-suave); font-size: 0.95rem; }
 .comp-planeta-salud strong { color: var(--titulo); font-size: 1.15rem; }
+/* Planeta promedio en las pestañas Prueba 1 y Prueba 2 */
+.stat-planeta-card { display: flex; justify-content: center; }
+.stat-planeta-card .comp-planeta { --talla: min(46vw, 260px); }
 @media (max-width: 560px) {
   .comp-planetas { grid-template-columns: 1fr; }
   .comp-planeta { --talla: min(55vw, 220px); }
