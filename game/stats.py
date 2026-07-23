@@ -11,7 +11,16 @@ from game import motor
 LIMITES_ORDEN = list(motor.LIMITES.keys())
 LIMITES_NOMBRES = [motor.LIMITES[c]["corto"] for c in LIMITES_ORDEN]
 DESENLACES_ORDEN = list(motor.DESENLACES.keys())
-DESENLACES_NOMBRES = [motor.DESENLACES[c] for c in DESENLACES_ORDEN]
+# Etiquetas cortas para los ejes de las gráficas (las completas no caben).
+DESENLACES_CORTOS_MAPA = {
+    "guardian": "🌱 Guardián",
+    "equilibrista": "🌍 Equilibrista",
+    "al_borde": "⚠️ Al borde",
+    "herencia_rota": "🔥 Herencia rota",
+    "colapso_planetario": "💀 Colapso planet.",
+    "colapso_social": "🏚️ Colapso social",
+}
+DESENLACES_NOMBRES = [DESENLACES_CORTOS_MAPA[c] for c in DESENLACES_ORDEN]
 
 # Cubetas de edad para la demografía.
 _EDAD_CUBETAS = [

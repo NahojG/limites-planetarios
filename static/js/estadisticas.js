@@ -27,6 +27,7 @@
   }
 
   const construido = {}; // tab -> [charts]
+  const fabricas = {};   // id de lienzo -> función(canvas) que crea la gráfica
   let charts = [];
 
   function baseOpciones(c, { horizontal = false, leyenda = false, max = null } = {}) {
@@ -47,9 +48,7 @@
     };
   }
 
-  function barras(id, etiquetas, valores, color, opciones) {
-    const canvas = document.getElementById(id);
-    if (!canvas) return null;
+  function crearBarras(canvas, etiquetas, valores, color, opciones) {
     const colorArr = typeof color === "function" ? valores.map(color) : color;
     return new Chart(canvas, {
       type: "bar",
@@ -61,9 +60,7 @@
     });
   }
 
-  function barrasDobles(id, etiquetas, s1, s2, c, opciones) {
-    const canvas = document.getElementById(id);
-    if (!canvas) return null;
+  function crearBarrasDobles(canvas, etiquetas, s1, s2, c, opciones) {
     return new Chart(canvas, {
       type: "bar",
       data: {
@@ -77,42 +74,73 @@
     });
   }
 
-  function construirPrueba(prefijo, d, c) {
-    const salida = [];
-    salida.push(barras(prefijo + "-desenlaces", d.desenlaces.etiquetas, d.desenlaces.valores,
-      c.azul, baseOpciones(c, { horizontal: true })));
-    salida.push(barras(prefijo + "-limites", d.limites.etiquetas, d.limites.valores,
-      (v) => colorZona(v, c), baseOpciones(c, { max: 100 })));
-    salida.push(barras(prefijo + "-sexo", d.demografia.sexo.etiquetas, d.demografia.sexo.valores,
-      c.azul, baseOpciones(c)));
-    salida.push(barras(prefijo + "-edad", d.demografia.edad.etiquetas, d.demografia.edad.valores,
-      c.azul, baseOpciones(c)));
-    salida.push(barras(prefijo + "-programa", d.demografia.programa.etiquetas, d.demografia.programa.valores,
-      c.azul, baseOpciones(c, { horizontal: true })));
-    return salida.filter(Boolean);
+  // Registra la fábrica de una gráfica y la construye en su lienzo de la página.
+  function registrar(id, fabrica) {
+    const canvas = document.getElementById(id);
+    if (!canvas) return null;
+    fabricas[id] = fabrica;
+    return fabrica(canvas);
   }
 
-  function construirComparacion(d, c) {
-    const salida = [];
-    salida.push(barrasDobles("c-desenlaces", d.desenlaces.etiquetas, d.desenlaces.prueba1, d.desenlaces.prueba2,
-      c, baseOpciones(c, { horizontal: true, leyenda: true })));
-    salida.push(barrasDobles("c-limites", d.limites.etiquetas, d.limites.prueba1, d.limites.prueba2,
-      c, baseOpciones(c, { leyenda: true, max: 100 })));
-    salida.push(barras("c-decisiones", d.decisiones.etiquetas, d.decisiones.valores,
-      c.azul, baseOpciones(c, { horizontal: true })));
-    return salida.filter(Boolean);
+  function especificacionesPrueba(prefijo, d, c) {
+    return [
+      [prefijo + "-desenlaces", (cv) => crearBarras(cv, d.desenlaces.etiquetas, d.desenlaces.valores, c.azul, baseOpciones(c, { horizontal: true }))],
+      [prefijo + "-limites", (cv) => crearBarras(cv, d.limites.etiquetas, d.limites.valores, (v) => colorZona(v, c), baseOpciones(c, { max: 100 }))],
+      [prefijo + "-sexo", (cv) => crearBarras(cv, d.demografia.sexo.etiquetas, d.demografia.sexo.valores, c.azul, baseOpciones(c))],
+      [prefijo + "-edad", (cv) => crearBarras(cv, d.demografia.edad.etiquetas, d.demografia.edad.valores, c.azul, baseOpciones(c))],
+      [prefijo + "-programa", (cv) => crearBarras(cv, d.demografia.programa.etiquetas, d.demografia.programa.valores, c.azul, baseOpciones(c, { horizontal: true }))],
+    ];
+  }
+
+  function especificacionesComparacion(d, c) {
+    return [
+      ["c-desenlaces", (cv) => crearBarrasDobles(cv, d.desenlaces.etiquetas, d.desenlaces.prueba1, d.desenlaces.prueba2, c, baseOpciones(c, { horizontal: true, leyenda: true }))],
+      ["c-limites", (cv) => crearBarrasDobles(cv, d.limites.etiquetas, d.limites.prueba1, d.limites.prueba2, c, baseOpciones(c, { leyenda: true, max: 100 }))],
+      ["c-decisiones", (cv) => crearBarras(cv, d.decisiones.etiquetas, d.decisiones.valores, c.azul, baseOpciones(c, { horizontal: true }))],
+    ];
   }
 
   function construir(tab) {
     if (construido[tab]) return;
     const c = colores();
-    let hechos = [];
-    if (tab === "p1") hechos = construirPrueba("p1", DATOS.prueba1, c);
-    else if (tab === "p2") hechos = construirPrueba("p2", DATOS.prueba2, c);
-    else if (tab === "comp") hechos = construirComparacion(DATOS.comparacion, c);
+    let specs = [];
+    if (tab === "p1") specs = especificacionesPrueba("p1", DATOS.prueba1, c);
+    else if (tab === "p2") specs = especificacionesPrueba("p2", DATOS.prueba2, c);
+    else if (tab === "comp") specs = especificacionesComparacion(DATOS.comparacion, c);
+    const hechos = specs.map(([id, f]) => registrar(id, f)).filter(Boolean);
     construido[tab] = hechos;
     charts = charts.concat(hechos);
   }
+
+  // --- Modal para ampliar una gráfica ---
+  const modal = document.getElementById("modal-grafico");
+  const modalCanvas = document.getElementById("modal-grafico-canvas");
+  const modalTitulo = document.getElementById("modal-grafico-titulo");
+  let modalChart = null;
+
+  function abrirModal(id, titulo) {
+    if (!fabricas[id]) return;
+    if (modalChart) modalChart.destroy();
+    modalTitulo.textContent = titulo;
+    modal.showModal();
+    // El lienzo debe estar visible para que Chart.js lo mida bien.
+    modalChart = fabricas[id](modalCanvas);
+  }
+  function cerrarModal() {
+    if (modalChart) { modalChart.destroy(); modalChart = null; }
+    modal.close();
+  }
+  document.getElementById("modal-grafico-cerrar").addEventListener("click", cerrarModal);
+  modal.addEventListener("click", (e) => { if (e.target === modal) cerrarModal(); });
+  modal.addEventListener("close", () => { if (modalChart) { modalChart.destroy(); modalChart = null; } });
+
+  document.querySelectorAll(".grafico").forEach((fig) => {
+    fig.addEventListener("click", () => {
+      const canvas = fig.querySelector("canvas");
+      const cap = fig.querySelector("figcaption");
+      if (canvas) abrirModal(canvas.id, cap ? cap.textContent.replace("⤢", "").trim() : "");
+    });
+  });
 
   // --- Pestañas ---
   const tabs = document.querySelectorAll(".tab");
@@ -128,7 +156,6 @@
         panel.hidden = !activo;
       });
       construir(destino);
-      // Chart.js necesita recalcular al hacerse visible el lienzo.
       (construido[destino] || []).forEach((ch) => ch.resize());
     })
   );
@@ -147,7 +174,6 @@
     });
   }
 
-  // Ajustes globales de tipografía.
   if (window.Chart) {
     Chart.defaults.font.family = "Karla, sans-serif";
     Chart.defaults.color = colores().ink;

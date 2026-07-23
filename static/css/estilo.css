@@ -1045,7 +1045,7 @@ body {
 .tab-panel.activo { display: block; }
 .grafico-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.2rem;
   margin-top: 1.2rem;
 }
@@ -1054,8 +1054,66 @@ body {
   border: 1px solid var(--borde);
   border-radius: 16px;
   padding: 1.1rem 1.2rem 1.3rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.grafico:hover { border-color: var(--azul-claro); transform: translateY(-2px); }
+.grafico figcaption::after {
+  content: "⤢";
+  margin-left: auto;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
 }
 .grafico-ancho { grid-column: 1 / -1; }
+@media (max-width: 640px) {
+  .grafico-grid { grid-template-columns: 1fr; }
+}
+
+/* Modal para ampliar una gráfica */
+.modal-grafico {
+  width: min(1000px, 94vw);
+  max-width: 94vw;
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  background: var(--superficie);
+  color: var(--texto);
+  padding: 0;
+}
+.modal-grafico::backdrop { background: rgba(4, 12, 20, 0.7); }
+.modal-grafico-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem;
+  border-bottom: 1px solid var(--borde);
+}
+.modal-grafico-cab h3 {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  color: var(--titulo);
+}
+.modal-grafico-cerrar {
+  background: none;
+  border: none;
+  color: var(--texto-suave);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.modal-grafico-cerrar:hover { color: var(--texto); }
+.modal-grafico-lienzo { position: relative; height: min(70vh, 620px); padding: 1.2rem; }
+
+/* Acceso docente en la portada */
+.pie-docente { margin-top: 0.6rem; }
+.pie-docente a {
+  color: var(--texto-suave);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--borde);
+  padding-bottom: 1px;
+  transition: color 0.2s ease;
+}
+.pie-docente a:hover { color: var(--azul-claro); }
 .grafico figcaption {
   font-weight: 700;
   color: var(--titulo);

@@ -82,6 +82,14 @@
   </section>
 
   <script type="application/json" id="datos-stats">{{ datos|tojson }}</script>
+
+  <dialog class="modal-grafico" id="modal-grafico">
+    <div class="modal-grafico-cab">
+      <h3 id="modal-grafico-titulo"></h3>
+      <button class="modal-grafico-cerrar" type="button" id="modal-grafico-cerrar" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-grafico-lienzo"><canvas id="modal-grafico-canvas"></canvas></div>
+  </dialog>
   {% endif %}
 </main>
 {% endblock %}
