@@ -16,10 +16,27 @@ En Railway puedes ejecutarlo con:  railway run python poblar_demo.py
 Los datos son inventados y sirven solo para previsualizar la interfaz.
 """
 import argparse
+import os
 import random
 import sys
 
 from game import db, motor
+
+
+def _exigir_base(url_cli):
+    """Configura y valida la conexión; explica con claridad si algo falta."""
+    if url_cli:
+        os.environ["DATABASE_URL"] = url_cli
+    if db.psycopg is None:
+        print("Falta la librería psycopg. Instala las dependencias:\n"
+              "    pip install -r requirements.txt", file=sys.stderr)
+        sys.exit(1)
+    if not os.environ.get("DATABASE_URL"):
+        print("No hay DATABASE_URL. En Railway el shell no siempre recibe las\n"
+              "variables del servicio; pásala explícitamente con --url:\n"
+              "    python poblar_demo.py --url \"$DATABASE_URL\"\n"
+              "o con la cadena de conexión completa entre comillas.", file=sys.stderr)
+        sys.exit(1)
 
 PROGRAMAS = [
     "Estadística", "Biología", "Derecho", "Medicina", "Ingeniería Ambiental",
@@ -71,11 +88,10 @@ def main():
     parser.add_argument("-n", type=int, default=40, help="cantidad de estudiantes (por defecto 40)")
     parser.add_argument("--semestre", default="DEMO", help="nombre del semestre (por defecto DEMO)")
     parser.add_argument("--seed", type=int, default=None, help="semilla aleatoria (opcional)")
+    parser.add_argument("--url", default=None, help="cadena de conexión (si DATABASE_URL no está en el entorno)")
     args = parser.parse_args()
 
-    if not db.disponible():
-        print("No hay DATABASE_URL configurada: no se puede poblar la base.", file=sys.stderr)
-        sys.exit(1)
+    _exigir_base(args.url)
 
     rng = random.Random(args.seed)
     db.init_db()

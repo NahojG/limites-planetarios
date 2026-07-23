@@ -172,7 +172,14 @@ python poblar_demo.py -n 80    # con 80 estudiantes
 python borrar_datos.py         # borra TODOS los datos (pide confirmación)
 ```
 
-En Railway se ejecutan con `railway run python poblar_demo.py`. Los datos son inventados y sirven solo para ver la interfaz.
+En Railway se ejecutan con `railway run python poblar_demo.py`. Si el shell no recibe `DATABASE_URL`, pásala con `--url`:
+
+```bash
+python poblar_demo.py --url "$DATABASE_URL"
+python poblar_demo.py --url "postgresql://usuario:clave@host:puerto/base"
+```
+
+Los datos son inventados y sirven solo para ver la interfaz.
 
 ### Estructura
 

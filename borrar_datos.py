@@ -11,6 +11,7 @@ Uso:
 En Railway:  railway run python borrar_datos.py
 """
 import argparse
+import os
 import sys
 
 from game import db
@@ -19,10 +20,16 @@ from game import db
 def main():
     parser = argparse.ArgumentParser(description="Borra todos los datos de la base.")
     parser.add_argument("--si", action="store_true", help="borra sin pedir confirmación")
+    parser.add_argument("--url", default=None, help="cadena de conexión (si DATABASE_URL no está en el entorno)")
     args = parser.parse_args()
 
-    if not db.disponible():
-        print("No hay DATABASE_URL configurada: no hay base que borrar.", file=sys.stderr)
+    if args.url:
+        os.environ["DATABASE_URL"] = args.url
+    if db.psycopg is None:
+        print("Falta la librería psycopg. Instala: pip install -r requirements.txt", file=sys.stderr)
+        sys.exit(1)
+    if not os.environ.get("DATABASE_URL"):
+        print("No hay DATABASE_URL. Pásala con --url \"$DATABASE_URL\" o la cadena completa.", file=sys.stderr)
         sys.exit(1)
 
     if not args.si:
