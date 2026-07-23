@@ -17,6 +17,34 @@
     de gobernar el planeta.
   </p>
 
+  <section class="panel-tarjeta comp-planetas">
+    <figure class="comp-planeta-col">
+      <p class="comp-etapa">Inicio del curso</p>
+      <div class="planeta comp-planeta" style="--deg:{{ deg1 }}" aria-hidden="true">
+        <div class="planeta-oceano"></div>
+        <div class="planeta-continentes"></div>
+        <div class="planeta-nubes"></div>
+        <div class="planeta-smog"></div>
+        <div class="planeta-sombra"></div>
+        <div class="planeta-brillo"></div>
+      </div>
+      <figcaption class="comp-planeta-salud">Salud <strong>{{ r1.salud_final }}</strong></figcaption>
+    </figure>
+    <div class="comp-flecha" aria-hidden="true">→</div>
+    <figure class="comp-planeta-col">
+      <p class="comp-etapa">Fin del curso</p>
+      <div class="planeta comp-planeta" style="--deg:{{ deg2 }}" aria-hidden="true">
+        <div class="planeta-oceano"></div>
+        <div class="planeta-continentes"></div>
+        <div class="planeta-nubes"></div>
+        <div class="planeta-smog"></div>
+        <div class="planeta-sombra"></div>
+        <div class="planeta-brillo"></div>
+      </div>
+      <figcaption class="comp-planeta-salud">Salud <strong>{{ r2.salud_final }}</strong></figcaption>
+    </figure>
+  </section>
+
   <section class="panel-tarjeta comp-resumen">
     <div class="comp-col">
       <p class="comp-etapa">Inicio del curso</p>

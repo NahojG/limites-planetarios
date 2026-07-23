@@ -124,7 +124,11 @@
     modalTitulo.textContent = titulo;
     modal.showModal();
     // El lienzo debe estar visible para que Chart.js lo mida bien.
+    // Tipografía más grande para que sea legible al proyectar en un auditorio.
+    const fuentePrevia = Chart.defaults.font.size;
+    Chart.defaults.font.size = 18;
     modalChart = fabricas[id](modalCanvas);
+    Chart.defaults.font.size = fuentePrevia;
   }
   function cerrarModal() {
     if (modalChart) { modalChart.destroy(); modalChart = null; }

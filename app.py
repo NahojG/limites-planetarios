@@ -129,6 +129,10 @@ def comparativo():
         {"clave": clave, "nombre": datos["nombre"], "corto": datos["corto"]}
         for clave, datos in motor.LIMITES.items()
     ]
+    # Degradación del planeta a partir de la salud (igual que en el juego:
+    # 0 = sano con salud >= 70, 1 = colapso con salud <= 28).
+    def _deg(salud):
+        return round(max(0.0, min(1.0, (70 - (salud or 0)) / 42)), 3)
     # Decisiones que cambiaron entre la Prueba 1 y la Prueba 2.
     cambios = []
     for d1, d2 in zip(r1["decisiones"], r2["decisiones"]):
@@ -142,6 +146,8 @@ def comparativo():
         limites=limites,
         cambios=cambios,
         etiqueta=motor.etiqueta_desenlace,
+        deg1=_deg(r1["salud_final"]),
+        deg2=_deg(r2["salud_final"]),
     )
 
 
