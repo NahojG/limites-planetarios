@@ -193,6 +193,17 @@ def get_resultado(semestre_id, correo, prueba):
         ).fetchone()
 
 
+def borrar_todo():
+    """Vacía por completo las tablas (semestres, estudiantes y resultados).
+
+    Pensado para limpiar datos de demostración. Es irreversible.
+    """
+    if not disponible():
+        return
+    with _conectar() as conn:
+        conn.execute("TRUNCATE resultado, estudiante, semestre RESTART IDENTITY CASCADE")
+
+
 def conteos_semestre(semestre_id):
     """Resumen de participación del semestre para el panel de la profesora."""
     vacio = {"estudiantes": 0, "prueba1": 0, "prueba2": 0, "ambas": 0}

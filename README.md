@@ -162,6 +162,18 @@ docker run -d --name holoceno-pg -e POSTGRES_PASSWORD=clave \
 6. En **Settings → Networking**, genera el dominio público (`Generate Domain`).
 7. La profesora entra al panel en `TU-DOMINIO/panel`.
 
+### Datos de demostración
+
+Para previsualizar las estadísticas sin esperar a que jueguen estudiantes reales, hay dos scripts que operan sobre la base indicada en `DATABASE_URL`:
+
+```bash
+python poblar_demo.py          # crea un semestre "DEMO" con estudiantes ficticios
+python poblar_demo.py -n 80    # con 80 estudiantes
+python borrar_datos.py         # borra TODOS los datos (pide confirmación)
+```
+
+En Railway se ejecutan con `railway run python poblar_demo.py`. Los datos son inventados y sirven solo para ver la interfaz.
+
 ### Estructura
 
 ```
@@ -172,6 +184,8 @@ game/stats.py       # Agregaciones para la pestaña de estadísticas
 game/data/          # Límites, dilemas y quiz (contenido del módulo)
 templates/          # Inicio, juego, registro, comparativo, panel, estadísticas (Jinja2)
 static/css|js|img   # Estilos, planeta animado, diagrama radial, Chart.js local
+poblar_demo.py      # Puebla la base con datos ficticios (para ver las estadísticas)
+borrar_datos.py     # Borra todos los datos de la base
 ```
 
 ## Referencias
