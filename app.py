@@ -8,7 +8,7 @@ from functools import wraps
 
 from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
-from game import db, motor, stats, visitas
+from game import db, demo, motor, stats, visitas
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "holoceno-dev")
@@ -280,6 +280,22 @@ def panel_prueba():
     valor = request.form.get("prueba")
     if valor in ("0", "1", "2") and db.semestre_activo():
         db.set_prueba_activa(int(valor))
+    return redirect(url_for("panel"))
+
+
+@app.post("/panel/demo/poblar")
+@requiere_profesor
+def panel_demo_poblar():
+    if db.disponible():
+        demo.poblar(n=40, nombre="DEMO")
+    return redirect(url_for("estadisticas"))
+
+
+@app.post("/panel/demo/borrar")
+@requiere_profesor
+def panel_demo_borrar():
+    if db.disponible():
+        db.borrar_todo()
     return redirect(url_for("panel"))
 
 

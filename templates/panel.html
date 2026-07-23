@@ -91,6 +91,25 @@
     </form>
   </section>
 
+  <section class="panel-tarjeta">
+    <h2 class="panel-subtitulo">Herramientas de demostración</h2>
+    <p class="panel-ayuda">
+      Solo para probar la interfaz: «Cargar» crea un semestre <strong>DEMO</strong>
+      con estudiantes ficticios (archiva el actual) y «Borrar» vacía toda la base.
+      No los uses durante la actividad real con estudiantes.
+    </p>
+    <div class="panel-controles" style="margin-top: 0.9rem;">
+      <form action="{{ url_for('panel_demo_poblar') }}" method="post"
+            onsubmit="return confirm('Se archivará el semestre actual y se creará uno DEMO con datos ficticios. ¿Continuar?');">
+        <button class="boton boton-principal" type="submit">Cargar datos de demostración</button>
+      </form>
+      <form action="{{ url_for('panel_demo_borrar') }}" method="post"
+            onsubmit="return confirm('Esto BORRARÁ todos los datos (semestres, estudiantes y resultados). ¿Continuar?');">
+        <button class="boton boton-secundario" type="submit">Borrar todos los datos</button>
+      </form>
+    </div>
+  </section>
+
   {% endif %}
 </main>
 {% endblock %}

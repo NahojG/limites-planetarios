@@ -164,7 +164,9 @@ docker run -d --name holoceno-pg -e POSTGRES_PASSWORD=clave \
 
 ### Datos de demostración
 
-Para previsualizar las estadísticas sin esperar a que jueguen estudiantes reales, hay dos scripts que operan sobre la base indicada en `DATABASE_URL`:
+La forma más fácil de previsualizar las estadísticas es desde el propio panel docente: en **`/panel`** hay una sección «Herramientas de demostración» con botones para **cargar** datos ficticios y **borrar** todo. Corre dentro de la app desplegada, así que no hay que instalar nada ni configurar la URL.
+
+También hay dos scripts por línea de comandos que operan sobre la base indicada en `DATABASE_URL`:
 
 ```bash
 python poblar_demo.py          # crea un semestre "DEMO" con estudiantes ficticios
