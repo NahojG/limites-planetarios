@@ -50,9 +50,16 @@ def _prueba_en_curso():
 
 
 def _estudiante_valido(sem):
-    """Datos del estudiante en sesión si corresponden al semestre activo."""
+    """Datos del estudiante en sesión si corresponden al semestre y prueba activos.
+
+    Debe coincidir también la prueba: si la profesora pasa de Prueba 1 a Prueba 2,
+    el registro anterior deja de valer y se pide registrarse de nuevo, para que la
+    nueva partida se guarde como Prueba 2 y no sobrescriba la Prueba 1.
+    """
     est = session.get("estudiante")
-    if est and sem and est.get("semestre_id") == sem["id"]:
+    if (est and sem
+            and est.get("semestre_id") == sem["id"]
+            and est.get("prueba") == sem["prueba_activa"]):
         return est
     return None
 
