@@ -49,6 +49,7 @@
     <button class="tab activo" data-tab="p1" role="tab">Prueba 1 · inicio</button>
     <button class="tab" data-tab="p2" role="tab">Prueba 2 · fin</button>
     <button class="tab" data-tab="comp" role="tab">Comparación</button>
+    <button class="tab" data-tab="sem" role="tab">Entre semestres</button>
   </nav>
 
   {# ---- Prueba 1 ---- #}
@@ -107,6 +108,26 @@
       <figure class="grafico grafico-ancho"><figcaption>Desenlaces · inicio vs fin</figcaption><div class="lienzo"><canvas id="c-desenlaces"></canvas></div></figure>
       <figure class="grafico grafico-ancho"><figcaption>Transgresión por límite · inicio vs fin</figcaption><div class="lienzo"><canvas id="c-limites"></canvas></div></figure>
       <figure class="grafico grafico-ancho"><figcaption>Decisiones que más cambió el grupo</figcaption><div class="lienzo"><canvas id="c-decisiones"></canvas></div></figure>
+    </div>
+  </section>
+
+  {# ---- Entre semestres (cohortes en el tiempo) ---- #}
+  <section class="tab-panel" id="tab-sem" hidden>
+    <p class="comp-intro">
+      <strong>Cada semestre son estudiantes distintos.</strong> Esta vista compara
+      cohortes a lo largo del tiempo (no a las mismas personas): permite ver si,
+      generación tras generación, el grupo llega a cuidar mejor el planeta.
+    </p>
+    {% if datos.semestres.total < 2 %}
+    <section class="panel-tarjeta">
+      <p class="panel-ayuda">Todavía hay un solo semestre. La evolución aparecerá cuando
+      archives este e inicies otro (cada semestre nuevo archiva el anterior).</p>
+    </section>
+    {% endif %}
+    <div class="grafico-grid">
+      <figure class="grafico grafico-ancho"><figcaption>Salud promedio por semestre · inicio vs fin</figcaption><div class="lienzo"><canvas id="sem-salud"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Mejora de salud lograda (fin − inicio)</figcaption><div class="lienzo"><canvas id="sem-mejora"></canvas></div></figure>
+      <figure class="grafico"><figcaption>Participación por semestre</figcaption><div class="lienzo"><canvas id="sem-participacion"></canvas></div></figure>
     </div>
   </section>
 

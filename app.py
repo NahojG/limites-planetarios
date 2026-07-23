@@ -261,6 +261,7 @@ def estadisticas():
         "prueba2": stats.agregados_prueba(rows2),
         "comparacion": stats.comparacion(pares),
         "participacion": db.conteos_semestre(sem["id"]),
+        "semestres": stats.entre_semestres(db.resumen_por_semestre()),
     }
     return render_template("estadisticas.html", semestre=sem, datos=datos)
 

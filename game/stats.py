@@ -90,6 +90,33 @@ def agregados_prueba(rows):
     }
 
 
+def _num(x):
+    """Convierte Decimal/None a float redondeado (o None) para graficar y serializar."""
+    return round(float(x), 1) if x is not None else None
+
+
+def entre_semestres(filas):
+    """Evolución entre semestres (una entrada por semestre, en orden cronológico)."""
+    etiquetas, salud1, salud2, mejora, n1, n2 = [], [], [], [], [], []
+    for f in filas:
+        etiquetas.append(f["nombre"])
+        s1, s2 = _num(f["salud1"]), _num(f["salud2"])
+        salud1.append(s1)
+        salud2.append(s2)
+        mejora.append(round(s2 - s1, 1) if (s1 is not None and s2 is not None) else None)
+        n1.append(f["n1"] or 0)
+        n2.append(f["n2"] or 0)
+    return {
+        "etiquetas": etiquetas,
+        "salud1": salud1,
+        "salud2": salud2,
+        "mejora": mejora,
+        "participacion1": n1,
+        "participacion2": n2,
+        "total": len(filas),
+    }
+
+
 def comparacion(pares):
     """Compara Prueba 1 y Prueba 2 para quienes hicieron ambas.
 

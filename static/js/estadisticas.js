@@ -74,6 +74,27 @@
     });
   }
 
+  function crearLineas(canvas, etiquetas, series, opciones) {
+    return new Chart(canvas, {
+      type: "line",
+      data: {
+        labels: etiquetas,
+        datasets: series.map((s) => ({
+          label: s.label,
+          data: s.data,
+          borderColor: s.color,
+          backgroundColor: s.color,
+          tension: 0.3,
+          spanGaps: true,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+        })),
+      },
+      options: opciones,
+    });
+  }
+
   // Registra la fábrica de una gráfica y la construye en su lienzo de la página.
   function registrar(id, fabrica) {
     const canvas = document.getElementById(id);
@@ -100,6 +121,17 @@
     ];
   }
 
+  function especificacionesSemestres(d, c) {
+    return [
+      ["sem-salud", (cv) => crearLineas(cv, d.etiquetas, [
+        { label: "Inicio", data: d.salud1, color: c.azul },
+        { label: "Fin", data: d.salud2, color: c.naranja },
+      ], baseOpciones(c, { leyenda: true, max: 100 }))],
+      ["sem-mejora", (cv) => crearBarras(cv, d.etiquetas, d.mejora, c.verde, baseOpciones(c))],
+      ["sem-participacion", (cv) => crearBarrasDobles(cv, d.etiquetas, d.participacion1, d.participacion2, c, baseOpciones(c, { leyenda: true }))],
+    ];
+  }
+
   function construir(tab) {
     if (construido[tab]) return;
     const c = colores();
@@ -107,6 +139,7 @@
     if (tab === "p1") specs = especificacionesPrueba("p1", DATOS.prueba1, c);
     else if (tab === "p2") specs = especificacionesPrueba("p2", DATOS.prueba2, c);
     else if (tab === "comp") specs = especificacionesComparacion(DATOS.comparacion, c);
+    else if (tab === "sem") specs = especificacionesSemestres(DATOS.semestres, c);
     const hechos = specs.map(([id, f]) => registrar(id, f)).filter(Boolean);
     construido[tab] = hechos;
     charts = charts.concat(hechos);
@@ -148,7 +181,7 @@
 
   // --- Pestañas ---
   const tabs = document.querySelectorAll(".tab");
-  const paneles = { p1: "tab-p1", p2: "tab-p2", comp: "tab-comp" };
+  const paneles = { p1: "tab-p1", p2: "tab-p2", comp: "tab-comp", sem: "tab-sem" };
   tabs.forEach((t) =>
     t.addEventListener("click", () => {
       const destino = t.dataset.tab;

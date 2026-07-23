@@ -237,6 +237,32 @@ def conteos_semestre(semestre_id):
     return conteo
 
 
+def resumen_por_semestre():
+    """Una fila por semestre (orden cronológico) con promedios de cada prueba.
+
+    Sirve para la vista de evolución entre semestres.
+    """
+    if not disponible():
+        return []
+    with _conectar() as conn:
+        return conn.execute(
+            """
+            SELECT
+                s.id, s.nombre,
+                count(r.*) FILTER (WHERE r.prueba = 1)              AS n1,
+                count(r.*) FILTER (WHERE r.prueba = 2)              AS n2,
+                avg(r.salud_final) FILTER (WHERE r.prueba = 1)      AS salud1,
+                avg(r.salud_final) FILTER (WHERE r.prueba = 2)      AS salud2,
+                avg(r.bienestar_final) FILTER (WHERE r.prueba = 1)  AS bienestar1,
+                avg(r.bienestar_final) FILTER (WHERE r.prueba = 2)  AS bienestar2
+            FROM semestre s
+            LEFT JOIN resultado r ON r.semestre_id = s.id
+            GROUP BY s.id, s.nombre
+            ORDER BY s.id
+            """
+        ).fetchall()
+
+
 def resultados_prueba(semestre_id, prueba):
     """Todos los resultados de una prueba del semestre (lista de dicts)."""
     if not disponible() or semestre_id is None:
