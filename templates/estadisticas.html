@@ -146,6 +146,6 @@
 {% block scripts %}
 {% if datos %}
 <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
+<script src="{{ url_for('static', filename='js/estadisticas.js') }}?v=2"></script>
 {% endif %}
 {% endblock %}

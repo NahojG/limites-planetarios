@@ -29,11 +29,15 @@
   const construido = {}; // tab -> [charts]
   const fabricas = {};   // id de lienzo -> función(canvas) que crea la gráfica
   let charts = [];
+  // Tamaño de fuente de las gráficas: normal en la página, grande en el modal
+  // (para proyectar en auditorio). Se hornea explícito en las opciones.
+  let fuente = 13;
 
   function baseOpciones(c, { horizontal = false, leyenda = false, max = null } = {}) {
-    const ejeValor = { grid: { color: c.grid }, ticks: { color: c.muted }, beginAtZero: true };
+    const f = { size: fuente };
+    const ejeValor = { grid: { color: c.grid }, ticks: { color: c.muted, font: f }, beginAtZero: true };
     if (max !== null) ejeValor.max = max;
-    const ejeCat = { grid: { display: false }, ticks: { color: c.ink } };
+    const ejeCat = { grid: { display: false }, ticks: { color: c.ink, font: f } };
     return {
       responsive: true,
       maintainAspectRatio: false,
@@ -41,9 +45,9 @@
       scales: horizontal ? { x: ejeValor, y: ejeCat } : { x: ejeCat, y: ejeValor },
       plugins: {
         legend: leyenda
-          ? { display: true, labels: { color: c.ink, boxWidth: 12, boxHeight: 12 } }
+          ? { display: true, labels: { color: c.ink, boxWidth: 14, boxHeight: 14, font: f } }
           : { display: false },
-        tooltip: { enabled: true },
+        tooltip: { enabled: true, titleFont: f, bodyFont: f },
       },
     };
   }
@@ -158,10 +162,9 @@
     modal.showModal();
     // El lienzo debe estar visible para que Chart.js lo mida bien.
     // Tipografía grande para que sea legible al proyectar en un auditorio.
-    const fuentePrevia = Chart.defaults.font.size;
-    Chart.defaults.font.size = 26;
+    fuente = 30;
     modalChart = fabricas[id](modalCanvas);
-    Chart.defaults.font.size = fuentePrevia;
+    fuente = 13;
   }
   function cerrarModal() {
     if (modalChart) { modalChart.destroy(); modalChart = null; }
